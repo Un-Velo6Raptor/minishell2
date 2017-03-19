@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Tue Mar 14 12:57:32 2017 
-** Last update Thu Mar 16 14:09:34 2017 
+** Last update Fri Mar 17 12:46:11 2017 
 */
 
 #ifndef MY_H_
@@ -46,6 +46,7 @@ t_my_order		*ini_my_order(void);
 t_my_order		*create_list_order(char **);
 int			exec_the_order(t_needs *, t_my_order *);
 int			free_list_order(t_my_order *);
+int			check_tild(t_needs *, t_my_order *);
 
 /*
 **			Prototypes of file's basics.
@@ -79,7 +80,9 @@ char			*my_strcat(char *, char *);
 int			my_exit(t_my_order *);
 int			my_env(t_my_order *, t_needs *);
 int			my_setenv(t_my_order *, t_needs *);
+int			my_unsetenv(t_my_order *, t_needs *);
 char			*make_var_env(char *, char *);
+int			add_var_env(t_needs *, char *);
 
 /*
 **			Prototypes of file's get_next_line.

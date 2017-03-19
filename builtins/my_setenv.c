@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Thu Mar 16 13:37:26 2017 
-** Last update Thu Mar 16 14:10:05 2017 
+** Last update Thu Mar 16 14:32:40 2017 
 */
 
 #include	<stdlib.h>
@@ -36,7 +36,5 @@ int		my_setenv(t_my_order *my_order, t_needs *news)
     }
   if ((str = make_var_env(my_order->order[1], my_order->order[2])) == NULL)
     return (84);
-  printf("str: %s\n", str);
-  return (0);
-  //  return (add_var_env(news, str));
+  return (add_var_env(news, str));
 }

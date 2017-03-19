@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Mar 15 21:05:39 2017 
-** Last update Thu Mar 16 14:08:06 2017 
+** Last update Fri Mar 17 10:55:03 2017 
 */
 
 #include	<stdlib.h>
@@ -30,6 +30,8 @@ int		check_builtins(t_needs *news, t_my_order *my_order)
     return (my_env(my_order, news));
   if (my_strcmp(my_order->order[0], "setenv") == 0)
     return (my_setenv(my_order, news));
+  if (my_strcmp(my_order->order[0], "unsetenv") == 0)
+    return (my_unsetenv(my_order, news));
   return (command_not_found(my_order));
 }
 
@@ -37,7 +39,9 @@ int		exec_the_order(t_needs *news, t_my_order *my_order)
 {
   while (my_order != NULL)
     {
-      if (check_builtins(news, my_order) == 84)
+      if (check_tild(news, my_order) == MALLOC_FAILED)
+	return (84);
+      if (check_builtins(news, my_order) == MALLOC_FAILED)
 	return (84);
       my_order = my_order->next;
     }
