@@ -5,7 +5,7 @@
 ## Login   <martin.januario@epitech.eu>
 ## 
 ## Started on  Tue Mar 14 12:44:31 2017 
-## Last update Fri Mar 17 10:55:37 2017 
+## Last update Sun Mar 19 20:48:12 2017 
 ##
 
 SRC	=	src/main.c			\
@@ -17,6 +17,7 @@ SRC	=	src/main.c			\
 		src/free_list_order.c		\
 		src/exec_the_order.c		\
 		src/check_tild.c		\
+		src/update_pwd.c		\
 		src/isatty_disp.c
 
 BASICS	=	basics/my_strlen.c		\
@@ -45,6 +46,9 @@ BUILT	=	builtins/my_exit.c		\
 		builtins/make_var_env.c		\
 		builtins/add_var_env.c		\
 		builtins/my_unsetenv.c		\
+		builtins/my_cd.c		\
+		builtins/check_access.c		\
+		builtins/go_to_last_dir.c	\
 		builtins/my_env.c
 
 GNL	=	gnl/ini_gnl.c			\

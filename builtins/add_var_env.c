@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Thu Mar 16 14:23:53 2017 
-** Last update Sat Mar 18 20:52:34 2017 
+** Last update Sun Mar 19 23:10:41 2017 
 */
 
 #include	<stdlib.h>
@@ -62,7 +62,7 @@ int		add_var_env(t_needs *news, char *str)
   int		nb;
 
   if ((tmp = str_without_value(str)) == NULL)
-    return (84);
+    return (MALLOC_FAILED);
   if ((nb = found_var(news->my_env, tmp)) != -1)
     modif_var_env(news, str, nb);
   else if (add_var_env_next(news, str) == MALLOC_FAILED)

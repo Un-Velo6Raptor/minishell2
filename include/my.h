@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Tue Mar 14 12:57:32 2017 
-** Last update Fri Mar 17 12:46:11 2017 
+** Last update Sun Mar 19 21:27:38 2017 
 */
 
 #ifndef MY_H_
@@ -36,7 +36,7 @@ typedef struct		s_my_order
 /*
 **			Prototypes of file's sources.
 */
-void			ini_needs(t_needs *);
+int			ini_needs(t_needs *);
 int			found_var(char **, char *);
 void			isatty_disp(t_needs *);
 t_my_order		*prepare_order(char *);
@@ -47,6 +47,7 @@ t_my_order		*create_list_order(char **);
 int			exec_the_order(t_needs *, t_my_order *);
 int			free_list_order(t_my_order *);
 int			check_tild(t_needs *, t_my_order *);
+int			update_pwd(t_needs *);
 
 /*
 **			Prototypes of file's basics.
@@ -83,6 +84,9 @@ int			my_setenv(t_my_order *, t_needs *);
 int			my_unsetenv(t_my_order *, t_needs *);
 char			*make_var_env(char *, char *);
 int			add_var_env(t_needs *, char *);
+int			my_cd(t_my_order *, t_needs *);
+int			go_to_last_dir(t_needs *);
+int			check_access(char *, char *);
 
 /*
 **			Prototypes of file's get_next_line.

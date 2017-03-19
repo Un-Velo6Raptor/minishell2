@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Thu Mar 16 13:37:26 2017 
-** Last update Thu Mar 16 14:32:40 2017 
+** Last update Sun Mar 19 23:13:31 2017 
 */
 
 #include	<stdlib.h>
@@ -35,6 +35,6 @@ int		my_setenv(t_my_order *my_order, t_needs *news)
       return (my_puterror("must begin with a letter.\n"));
     }
   if ((str = make_var_env(my_order->order[1], my_order->order[2])) == NULL)
-    return (84);
+    return (MALLOC_FAILED);
   return (add_var_env(news, str));
 }

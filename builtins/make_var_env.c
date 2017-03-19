@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Thu Mar 16 14:04:36 2017 
-** Last update Thu Mar 16 14:07:23 2017 
+** Last update Sun Mar 19 19:05:02 2017 
 */
 
 #include	<stdlib.h>
@@ -24,4 +24,3 @@ char		*make_var_env(char *name, char *value)
     my_strcat(str, value);
   return (str);
 }
-      

@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Tue Mar 14 13:01:35 2017 
-** Last update Wed Mar 15 21:04:55 2017 
+** Last update Sun Mar 19 21:29:07 2017 
 */
 
 #include	<stdlib.h>
@@ -51,7 +51,8 @@ int		main(int argc, char **argv, char **env)
   (void) argv;
   if ((news.my_env = my_tabdup(env)) == NULL)
     return (MALLOC_FAILED);
-  ini_needs(&news);
+  if (ini_needs(&news) == 84)
+    return (84);
   if (news.pwd == NULL || news.oldpwd == NULL)
     return (84);
   loop_order(&news);

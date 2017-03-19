@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Mar 15 21:05:39 2017 
-** Last update Fri Mar 17 10:55:03 2017 
+** Last update Sun Mar 19 16:32:48 2017 
 */
 
 #include	<stdlib.h>
@@ -32,6 +32,8 @@ int		check_builtins(t_needs *news, t_my_order *my_order)
     return (my_setenv(my_order, news));
   if (my_strcmp(my_order->order[0], "unsetenv") == 0)
     return (my_unsetenv(my_order, news));
+  if (my_strcmp(my_order->order[0], "cd") == 0)
+    return (my_cd(my_order, news));
   return (command_not_found(my_order));
 }
 
