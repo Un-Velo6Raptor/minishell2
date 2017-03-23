@@ -5,7 +5,7 @@
 ## Login   <martin.januario@epitech.eu>
 ## 
 ## Started on  Tue Mar 14 12:44:31 2017 
-## Last update Sun Mar 19 20:48:12 2017 
+## Last update Thu Mar 23 01:12:34 2017 
 ##
 
 SRC	=	src/main.c			\
@@ -18,6 +18,9 @@ SRC	=	src/main.c			\
 		src/exec_the_order.c		\
 		src/check_tild.c		\
 		src/update_pwd.c		\
+		src/my_exec.c			\
+		src/error_exec.c		\
+		src/make_exec_path.c		\
 		src/isatty_disp.c
 
 BASICS	=	basics/my_strlen.c		\
@@ -39,6 +42,7 @@ BASICS	=	basics/my_strlen.c		\
 		basics/free_tab.c		\
 		basics/my_tablen.c		\
 		basics/my_free.c		\
+		basics/count_special_char.c	\
 		basics/my_putstr.c
 
 BUILT	=	builtins/my_exit.c		\

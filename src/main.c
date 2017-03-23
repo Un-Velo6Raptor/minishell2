@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Tue Mar 14 13:01:35 2017 
-** Last update Sun Mar 19 21:29:07 2017 
+** Last update Wed Mar 22 16:34:53 2017 
 */
 
 #include	<stdlib.h>
@@ -22,9 +22,11 @@ int		loop_order(t_needs *news)
   t_buffer	buffer;
   t_my_order	*order;
   char		*tmp;
+  int		value_ret;
 
   ini_gnl(&buffer);
   isatty_disp(news);
+  value_ret = 0;
   if (signal(SIGINT, recup_sig) == SIG_ERR)
     return (0);
   while ((tmp = get_next_line(0, &buffer)) != NULL)
@@ -33,20 +35,22 @@ int		loop_order(t_needs *news)
 	return (0);
       if ((order = prepare_order(tmp)) != NULL)
 	{
-	  exec_the_order(news, order);
+	  value_ret = exec_the_order(news, order);
 	  free_list_order(order);
 	}
       my_free(tmp);
       isatty_disp(news);
     }
   free(tmp);
-  return (0);
+  return (value_ret);
 }
 
 int		main(int argc, char **argv, char **env)
 {
   t_needs	news;
+  int		value_ret;
 
+  value_ret = 0;
   (void) argc;
   (void) argv;
   if ((news.my_env = my_tabdup(env)) == NULL)
@@ -55,11 +59,11 @@ int		main(int argc, char **argv, char **env)
     return (84);
   if (news.pwd == NULL || news.oldpwd == NULL)
     return (84);
-  loop_order(&news);
+  value_ret = loop_order(&news);
   free_tab(news.my_env);
   my_free(news.pwd);
   my_free(news.oldpwd);
   my_free(news.path);
   my_free(news.home);
-  return (0);
+  return (value_ret);
 }

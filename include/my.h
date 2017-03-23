@@ -5,12 +5,13 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Tue Mar 14 12:57:32 2017 
-** Last update Sun Mar 19 21:27:38 2017 
+** Last update Thu Mar 23 04:13:02 2017 
 */
 
 #ifndef MY_H_
 # define MY_H_
 
+# include		<stdio.h>
 # include		"get_next_line.h"
 # define		MALLOC_FAILED 84
 
@@ -48,6 +49,11 @@ int			exec_the_order(t_needs *, t_my_order *);
 int			free_list_order(t_my_order *);
 int			check_tild(t_needs *, t_my_order *);
 int			update_pwd(t_needs *);
+int			my_exec(t_needs *, t_my_order *, char *);
+void			error_exec(int);
+int			count_spe_char(char *, char);
+int			make_exec_path(t_needs *, t_my_order *, char **);
+int			command_not_found(t_my_order *);
 
 /*
 **			Prototypes of file's basics.
