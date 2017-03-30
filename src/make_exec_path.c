@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Thu Mar 23 00:41:11 2017 
-** Last update Thu Mar 23 04:20:00 2017 
+** Last update Mon Mar 27 14:15:25 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -76,7 +76,7 @@ int		make_exec_path(t_needs *news,
     }
   if (found_var(news->my_env, "PATH=*") == -1 &&
       news->path == NULL)
-    return (my_puterror("No var PATH.\n"));
+    return (command_not_found(my_order));
   if ((nb = found_var(news->my_env, "PATH=*")) != -1)
     return (found_good_path(&news->my_env[nb][5], my_order, exec_path));
   return (found_good_path(news->path, my_order, exec_path));
