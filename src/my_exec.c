@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Mar 27 14:01:03 2017 Martin Januario
-** Last update Mon Mar 27 17:23:14 2017 Martin Januario
+** Last update Mon Apr  3 20:03:00 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -25,8 +25,7 @@ int		check_path(char *str, t_my_order *my_order)
       command_not_found(my_order);
       return (1);
     }
-  else if (access(str, 0) == -1 ||
-	   (lstat(str, &sb) != -1 && S_ISDIR(sb.st_mode) != 0))
+  else if (access(str, 0) == -1)
     {
       command_not_found(my_order);
       return (1);
@@ -70,6 +69,8 @@ int		my_exec(t_needs *news, t_my_order *my_order, char *exec_path)
         kill(son_uid, 0);
       if (!WIFEXITED(status % 255))
         error_exec(status % 255);
+      if (status > 0 && status < 30)
+	status += 128;
       return ((status % 255));
     }
   else
