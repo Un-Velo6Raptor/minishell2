@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Mar 15 17:55:37 2017 
-** Last update Wed Mar 15 18:37:39 2017 
+** Last update Tue Apr  4 15:37:31 2017 Martin Januario
 */
 
 #include	<stdio.h>
@@ -22,4 +22,5 @@ void		disp_list_order(t_my_order *my_order)
       disp_tab(my_order->order);
       my_order = my_order->next;
     }
+  printf("---- END ----\n");
 }

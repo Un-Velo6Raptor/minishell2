@@ -4,8 +4,8 @@
 ## Made by Martin Januario
 ## Login   <martin.januario@epitech.eu>
 ## 
-## Started on  Tue Mar 14 12:44:31 2017 
-## Last update Thu Mar 23 01:12:34 2017 
+## Started on  Wed Apr  5 16:47:48 2017 Martin Januario
+## Last update Wed Apr  5 16:48:25 2017 Martin Januario
 ##
 
 SRC	=	src/main.c			\
@@ -16,6 +16,9 @@ SRC	=	src/main.c			\
 		src/how_separate_order.c	\
 		src/free_list_order.c		\
 		src/exec_the_order.c		\
+		src/nb_pipe.c			\
+		src/check_pipe_redir.c		\
+		src/create_pipe.c		\
 		src/check_tild.c		\
 		src/update_pwd.c		\
 		src/my_exec.c			\

@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Mar 27 14:01:03 2017 Martin Januario
-** Last update Mon Apr  3 20:03:00 2017 Martin Januario
+** Last update Wed Apr  5 12:22:35 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -66,9 +66,9 @@ int		my_exec(t_needs *news, t_my_order *my_order, char *exec_path)
   else if (son_uid != 0)
     {
       if (waitpid(son_uid, &status, 0) == -1)
-        kill(son_uid, 0);
+	kill(son_uid, 0);
       if (!WIFEXITED(status % 255))
-        error_exec(status % 255);
+	error_exec(status % 255);
       if (status > 0 && status < 30)
 	status += 128;
       return ((status % 255));

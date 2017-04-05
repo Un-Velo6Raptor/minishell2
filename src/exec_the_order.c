@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Mar 15 21:05:39 2017 
-** Last update Thu Mar 23 15:45:30 2017 
+** Last update Wed Apr  5 17:21:09 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -19,7 +19,7 @@ int		command_not_found(t_my_order *my_order)
 }
 
 int		check_builtins_next(t_needs *news,
-				    t_my_order *my_order)
+				    t_my_order *my_order, int opt)
 {
   char		*exec_path;
   int		value_ret;
@@ -30,14 +30,18 @@ int		check_builtins_next(t_needs *news,
     return (my_unsetenv(my_order, news));
   if (my_strcmp(my_order->order[0], "cd") == 0)
     return (my_cd(my_order, news));
-  if ((value_ret = make_exec_path(news, my_order, &exec_path)) > 0)
-    return (value_ret);
-  value_ret = my_exec(news, my_order, exec_path);
-  my_free(exec_path);
-  return (value_ret);
+  if (opt != 0)
+    {
+      if ((value_ret = make_exec_path(news, my_order, &exec_path)) > 0)
+	return (value_ret);
+      value_ret = my_exec(news, my_order, exec_path);
+      my_free(exec_path);
+      return (value_ret);
+    }
+  return (-1);
 }
 
-int		check_builtins(t_needs *news, t_my_order *my_order)
+int		check_builtins(t_needs *news, t_my_order *my_order, int opt)
 {
   (void) news;
   if (my_order->order == NULL || my_order->order[0] == NULL ||
@@ -49,7 +53,7 @@ int		check_builtins(t_needs *news, t_my_order *my_order)
     return (my_env(my_order, news));
   if (my_strcmp(my_order->order[0], "setenv") == 0)
     return (my_setenv(my_order, news));
-  return (check_builtins_next(news, my_order));
+  return (check_builtins_next(news, my_order, opt));
 }
 
 int		exec_the_order(t_needs *news, t_my_order *my_order)
@@ -57,13 +61,22 @@ int		exec_the_order(t_needs *news, t_my_order *my_order)
   int		nb;
 
   nb = 0;
+  disp_list_order(my_order);
+  if (check_pipe_redir(my_order) == 1)
+    return (1);
   while (my_order != NULL)
     {
       if (check_tild(news, my_order) == MALLOC_FAILED)
 	return (84);
-      if ((nb = check_builtins(news, my_order)) == MALLOC_FAILED)
+      if (my_order->next != NULL && my_strcmp(my_order->oper_n, "|") == 0)
+	{
+	  nb = create_pipe(news, my_order);
+	  while (my_order->next != NULL &&
+		 my_strcmp(my_order->oper_n, "|") == 0)
+	    my_order = my_order->next;
+	}
+      else if ((nb = check_builtins(news, my_order, 1)) == MALLOC_FAILED)
 	return (84);
-      //      printf("valeur de retour: %d\n", nb);
       my_order = my_order->next;
     }
   return (nb);

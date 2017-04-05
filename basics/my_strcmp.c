@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Mar  1 14:44:40 2017 
-** Last update Wed Mar  1 14:45:01 2017 
+** Last update Mon Apr  3 21:08:11 2017 Martin Januario
 */
 
 #include	"my.h"
@@ -17,6 +17,10 @@ int		my_strcmp(char *s1, char *s2)
   int		len2;
 
   idx = 0;
+  if (s1 == NULL && s2 == NULL)
+    return (0);
+  if (s1 == NULL || s2 == NULL)
+    return (1);
   len1 = my_strlen(s1);
   len2 = my_strlen(s2);
   while (idx <= len1 && idx <= len2 && s1[idx] != '\0' && s2[idx] != '\0')

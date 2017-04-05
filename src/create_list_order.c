@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Mar 15 16:23:54 2017 
-** Last update Wed Mar 15 19:48:05 2017 
+** Last update Mon Apr  3 20:21:08 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -28,6 +28,8 @@ int		fill_list_order(t_my_order *my_order,
     return (MALLOC_FAILED);
   if (my_order->oper_n != NULL)
     (*idx)++;
+  my_order->pipe[0] = 1;
+  my_order->pipe[1] = 0;
   return (0);
 }
 

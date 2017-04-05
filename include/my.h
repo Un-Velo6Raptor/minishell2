@@ -4,8 +4,8 @@
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Tue Mar 14 12:57:32 2017 
-** Last update Thu Mar 23 04:13:02 2017 
+** Started on  Mon Apr  3 20:08:27 2017 Martin Januario
+** Last update Wed Apr  5 17:23:31 2017 Martin Januario
 */
 
 #ifndef MY_H_
@@ -32,6 +32,7 @@ typedef struct		s_my_order
   char			*oper_n;
   char			**order;
   int			error;
+  int			pipe[2];
 }			t_my_order;
 
 /*
@@ -54,6 +55,11 @@ void			error_exec(int);
 int			count_spe_char(char *, char);
 int			make_exec_path(t_needs *, t_my_order *, char **);
 int			command_not_found(t_my_order *);
+int			create_pipe(t_needs *, t_my_order *);
+int			check_builtins(t_needs *, t_my_order *, int);
+int			check_path(char *, t_my_order *);
+int			nb_pipe(t_my_order *);
+int			check_pipe_redir(t_my_order *);
 
 /*
 **			Prototypes of file's basics.
