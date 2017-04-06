@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:45:23 2017 Martin Januario
-** Last update Thu Apr  6 10:57:55 2017 Martin Januario
+** Last update Thu Apr  6 11:50:10 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -49,9 +49,11 @@ int		wait_son(int *son_uid, t_needs *news,
 {
   int		status;
   int		idx;
+  int		tmp;
 
   idx = 0;
   son_uid[cpt] = -1;
+  tmp = 0;
   while (son_uid[idx] != -1)
     {
       status = 0;
@@ -63,6 +65,8 @@ int		wait_son(int *son_uid, t_needs *news,
 	  if (status > 0 && status < 30)
 	    status += 128;
 	}
+      if (status == 256)
+	tmp = 1;
       idx++;
     }
   if (son_uid != NULL)
@@ -70,7 +74,7 @@ int		wait_son(int *son_uid, t_needs *news,
   if (beg != NULL && beg->order != NULL &&
       my_strcmp(beg->order[0], "cd") == 0)
     status = my_cd(beg, news);
-  return (status % 255);
+  return ((tmp == 0) ? (status % 255) : 1);
 }
 
 int		create_pipe(t_needs *news, t_my_order *my_order)
@@ -90,10 +94,7 @@ int		create_pipe(t_needs *news, t_my_order *my_order)
       if ((son_uid[idx] = fork()) < 0)
 	return (my_puterror("Fail fork.\n"));
       else if (son_uid[idx] == 0)
-	{
-	  my_exec_pipe(news, my_order);
-	  exit(0);
-	}
+	exit(my_exec_pipe(news, my_order));
       else
 	{
 	  close(my_order->pipe[1]);
