@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:45:23 2017 Martin Januario
-** Last update Wed Apr  5 19:45:12 2017 Martin Januario
+** Last update Thu Apr  6 10:57:55 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -90,7 +90,10 @@ int		create_pipe(t_needs *news, t_my_order *my_order)
       if ((son_uid[idx] = fork()) < 0)
 	return (my_puterror("Fail fork.\n"));
       else if (son_uid[idx] == 0)
-	my_exec_pipe(news, my_order);
+	{
+	  my_exec_pipe(news, my_order);
+	  exit(0);
+	}
       else
 	{
 	  close(my_order->pipe[1]);

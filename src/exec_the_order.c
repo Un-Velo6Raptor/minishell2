@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Mar 15 21:05:39 2017 
-** Last update Thu Apr  6 10:37:42 2017 Martin Januario
+** Last update Thu Apr  6 11:00:03 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -13,8 +13,8 @@
 
 int		command_not_found(t_my_order *my_order)
 {
-  my_putstr(my_order->order[0]);
-  my_putstr(": Command not found.\n");
+  my_puterror(my_order->order[0]);
+  my_puterror(": Command not found.\n");
   return (1);
 }
 
