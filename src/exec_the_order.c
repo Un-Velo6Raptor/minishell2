@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Mar 15 21:05:39 2017 
-** Last update Wed Apr  5 17:21:09 2017 Martin Januario
+** Last update Thu Apr  6 10:37:42 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -61,9 +61,11 @@ int		exec_the_order(t_needs *news, t_my_order *my_order)
   int		nb;
 
   nb = 0;
-  disp_list_order(my_order);
   if (check_pipe_redir(my_order) == 1)
     return (1);
+  if (my_order_for_redir(my_order) == 84)
+    return (84);
+  //  disp_list_order(my_order);
   while (my_order != NULL)
     {
       if (check_tild(news, my_order) == MALLOC_FAILED)

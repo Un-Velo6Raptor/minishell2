@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:45:23 2017 Martin Januario
-** Last update Wed Apr  5 16:46:17 2017 Martin Januario
+** Last update Wed Apr  5 19:45:12 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -20,6 +20,8 @@ int		my_exec_pipe(t_needs *news, t_my_order *my_order)
   char		*exec_path;
   int		value_ret;
 
+  if ((value_ret = check_builtins(news, my_order, 0)) != -1)
+    exit(value_ret);
   if (my_order->before != NULL && my_strcmp(my_order->oper_b, "|") == 0)
     dup2(my_order->before->pipe[0], 0);
   if (my_order->next != NULL)
@@ -27,8 +29,6 @@ int		my_exec_pipe(t_needs *news, t_my_order *my_order)
       dup2(my_order->pipe[1], 1);
       close(my_order->pipe[0]);
     }
-  if ((value_ret = check_builtins(news, my_order, 0)) != -1)
-    exit(value_ret);
   if ((value_ret = make_exec_path(news, my_order, &exec_path)) > 0)
     return (value_ret);
   if (check_path(exec_path, my_order) == 1)
@@ -51,16 +51,18 @@ int		wait_son(int *son_uid, t_needs *news,
   int		idx;
 
   idx = 0;
-  son_uid[cpt - 1] = -1;
+  son_uid[cpt] = -1;
   while (son_uid[idx] != -1)
     {
       status = 0;
       if (waitpid(son_uid[idx], &status, 0) == -1)
 	kill(son_uid[idx], 0);
       if (!WIFEXITED(status % 255))
-        error_exec(status % 255);
-      if (status > 0 && status < 30)
-        status += 128;
+	{
+	  error_exec(status % 255);
+	  if (status > 0 && status < 30)
+	    status += 128;
+	}
       idx++;
     }
   if (son_uid != NULL)
@@ -84,10 +86,10 @@ int		create_pipe(t_needs *news, t_my_order *my_order)
 			      my_strcmp(my_order->oper_b, "|") == 0))
     {
       if (pipe(my_order->pipe) == -1)
-	return (my_puterror("Fail pipe\n"));
-      if ((son_uid[0] = fork()) < 0)
-	return (my_puterror("Fail fork\n"));
-      else if (son_uid[0] == 0)
+	return (my_puterror("Fail pipe.\n"));
+      if ((son_uid[idx] = fork()) < 0)
+	return (my_puterror("Fail fork.\n"));
+      else if (son_uid[idx] == 0)
 	my_exec_pipe(news, my_order);
       else
 	{

@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:08:27 2017 Martin Januario
-** Last update Wed Apr  5 17:23:31 2017 Martin Januario
+** Last update Thu Apr  6 10:38:09 2017 Martin Januario
 */
 
 #ifndef MY_H_
@@ -60,6 +60,7 @@ int			check_builtins(t_needs *, t_my_order *, int);
 int			check_path(char *, t_my_order *);
 int			nb_pipe(t_my_order *);
 int			check_pipe_redir(t_my_order *);
+int			my_order_for_redir(t_my_order *);
 
 /*
 **			Prototypes of file's basics.
