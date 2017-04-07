@@ -5,7 +5,7 @@
 ## Login   <martin.januario@epitech.eu>
 ## 
 ## Started on  Wed Apr  5 16:47:48 2017 Martin Januario
-## Last update Wed Apr  5 20:33:57 2017 Martin Januario
+## Last update Fri Apr  7 18:33:57 2017 Martin Januario
 ##
 
 SRC	=	src/main.c			\
@@ -15,6 +15,7 @@ SRC	=	src/main.c			\
 		src/create_list_order.c		\
 		src/how_separate_order.c	\
 		src/free_list_order.c		\
+		src/redir_error.c		\
 		src/exec_the_order.c		\
 		src/nb_pipe.c			\
 		src/my_order_for_redir.c	\

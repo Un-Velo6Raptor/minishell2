@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Mar 15 16:23:54 2017 
-** Last update Mon Apr  3 20:21:08 2017 Martin Januario
+** Last update Fri Apr  7 01:43:30 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -30,6 +30,7 @@ int		fill_list_order(t_my_order *my_order,
     (*idx)++;
   my_order->pipe[0] = 1;
   my_order->pipe[1] = 0;
+  my_order->fd = 0;
   return (0);
 }
 

@@ -5,30 +5,51 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:45:23 2017 Martin Januario
-** Last update Thu Apr  6 11:50:10 2017 Martin Januario
+** Last update Fri Apr  7 18:49:29 2017 Martin Januario
 */
 
 #include	<sys/types.h>
+#include	<sys/stat.h>
 #include	<sys/wait.h>
 #include	<signal.h>
 #include	<stdlib.h>
 #include	<unistd.h>
+#include	<fcntl.h>
 #include	"my.h"
+
+int		dup_pipe(t_my_order *my_order)
+{
+  if (my_order->before != NULL && my_strcmp(my_order->oper_b, "|") == 0)
+      dup2(my_order->before->pipe[0], 0);
+  if (my_order->next != NULL)
+    {
+      dup2(my_order->pipe[1], 1);
+      close(my_order->pipe[0]);
+    }
+  if (my_strcmp(my_order->oper_n, ">") == 0 ||
+      my_strcmp(my_order->oper_n, ">>") == 0)
+    {
+      if (my_strcmp(my_order->oper_n, ">") == 0)
+	my_order->fd = open(my_order->next->order[0],
+			    O_CREAT | O_TRUNC | O_RDWR, 0644);
+      else if (my_strcmp(my_order->oper_n, ">>") == 0)
+	my_order->fd = open(my_order->next->order[0], O_CREAT |
+			    O_APPEND | O_RDWR, 0644);
+      if (my_order->fd == -1)
+	exit(1);
+      dup2(my_order->fd, 1);
+    }
+  return (0);
+}
 
 int		my_exec_pipe(t_needs *news, t_my_order *my_order)
 {
   char		*exec_path;
   int		value_ret;
 
+  dup_pipe(my_order);
   if ((value_ret = check_builtins(news, my_order, 0)) != -1)
     exit(value_ret);
-  if (my_order->before != NULL && my_strcmp(my_order->oper_b, "|") == 0)
-    dup2(my_order->before->pipe[0], 0);
-  if (my_order->next != NULL)
-    {
-      dup2(my_order->pipe[1], 1);
-      close(my_order->pipe[0]);
-    }
   if ((value_ret = make_exec_path(news, my_order, &exec_path)) > 0)
     return (value_ret);
   if (check_path(exec_path, my_order) == 1)
@@ -38,8 +59,12 @@ int		my_exec_pipe(t_needs *news, t_my_order *my_order)
     {
       my_puterror(exec_path);
       my_puterror(": Exec format error. Binary file not executable.");
+      if (my_order->fd != -1)
+	close(my_order->fd);
       exit(1);
     }
+  if (my_order->fd != -1)
+    close(my_order->fd);
   my_free(exec_path);
   return (0);
 }
@@ -59,7 +84,7 @@ int		wait_son(int *son_uid, t_needs *news,
       status = 0;
       if (waitpid(son_uid[idx], &status, 0) == -1)
 	kill(son_uid[idx], 0);
-      if (!WIFEXITED(status % 255))
+      if (!WIFEXITED(status))
 	{
 	  error_exec(status % 255);
 	  if (status > 0 && status < 30)

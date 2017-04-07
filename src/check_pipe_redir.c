@@ -1,4 +1,3 @@
-
 /*
 ** check_pipe_redir.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
 ** 
@@ -6,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Apr  5 16:47:27 2017 Martin Januario
-** Last update Wed Apr  5 17:22:22 2017 Martin Januario
+** Last update Fri Apr  7 03:57:03 2017 Martin Januario
 */
 
 #include	"my.h"
@@ -20,8 +19,35 @@ int		order_null(t_my_order *my_order)
   return (0);
 }
 
+int		ambigous(t_my_order *my_order)
+{
+  while (my_order->next != NULL)
+    {
+      if ((my_strcmp(my_order->oper_n, ">") == 0 ||
+	   my_strcmp(my_order->oper_n, ">>") == 0) &&
+	  (my_strcmp(my_order->next->oper_n, ">") == 0 ||
+	   my_strcmp(my_order->next->oper_n, ">>") == 0))
+	return (my_puterror("Ambiguous input redirect.\n"));
+      if ((my_strcmp(my_order->oper_n, "<") == 0 ||
+	   my_strcmp(my_order->oper_n, "<<") == 0) &&
+	  (my_strcmp(my_order->next->oper_n, "<") == 0 ||
+	   my_strcmp(my_order->next->oper_n, "<<") == 0))
+	return (my_puterror("Ambiguous input redirect.\n"));
+      if ((my_strcmp(my_order->oper_n, ">") == 0 ||
+	   my_strcmp(my_order->oper_n, ">") == 0) &&
+	  (my_strcmp(my_order->next->oper_n, "|") == 0 ||
+	   my_strcmp(my_order->next->oper_n, "|") == 0))
+	return (my_puterror("Ambiguous input redirect.\n"));
+      my_order = my_order->next;
+    }
+  return (0);
+}
+
 int		check_pipe_redir(t_my_order *my_order)
 {
+  t_my_order	*beg;
+
+  beg = my_order;
   while (my_order->next != NULL)
     {
       if (my_strcmp(my_order->oper_n, "|") == 0 &&
@@ -43,5 +69,5 @@ int		check_pipe_redir(t_my_order *my_order)
 	return (my_puterror("Missing name for redirect.\n"));
       my_order = my_order->next;
     }
-  return (0);
+  return (ambigous(beg));
 }

@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:08:27 2017 Martin Januario
-** Last update Thu Apr  6 10:38:09 2017 Martin Januario
+** Last update Fri Apr  7 18:41:26 2017 Martin Januario
 */
 
 #ifndef MY_H_
@@ -32,6 +32,7 @@ typedef struct		s_my_order
   char			*oper_n;
   char			**order;
   int			error;
+  int			fd;
   int			pipe[2];
 }			t_my_order;
 
@@ -61,6 +62,7 @@ int			check_path(char *, t_my_order *);
 int			nb_pipe(t_my_order *);
 int			check_pipe_redir(t_my_order *);
 int			my_order_for_redir(t_my_order *);
+int			redir_error(char *);
 
 /*
 **			Prototypes of file's basics.
