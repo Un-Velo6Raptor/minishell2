@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:45:03 2017 Martin Januario
-** Last update Sun Apr  9 02:45:05 2017 Martin Januario
+** Last update Sun Apr  9 22:05:46 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -27,6 +27,6 @@ void		error_exec(int status)
     my_puterror("Illegal instruction");
   if (WCOREDUMP(status))
     my_puterror(" (core dumped)\n");
-  else
+  else if (status != 13)
     my_puterror("\n");
 }
