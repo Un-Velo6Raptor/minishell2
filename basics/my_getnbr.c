@@ -1,11 +1,11 @@
 /*
-** my_getnbr.c for  in /home/januar_m/delivery/PSU/PSU_2016_tetris
+** my_getnbr.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/basics
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Mon Feb 27 21:54:55 2017 
-** Last update Mon Feb 27 21:54:58 2017 
+** Started on  Sun Apr  9 02:40:19 2017 Martin Januario
+** Last update Sun Apr  9 02:40:21 2017 Martin Januario
 */
 
 #include	"my.h"

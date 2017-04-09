@@ -1,11 +1,11 @@
 /*
-** my_str_is_num.c for  in /home/januar_m/delivery/PSU/PSU_2016_tetris
+** my_str_is_num.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/basics
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Thu Mar  2 19:23:51 2017 
-** Last update Thu Mar 16 12:50:20 2017 
+** Started on  Sun Apr  9 02:38:48 2017 Martin Januario
+** Last update Sun Apr  9 02:38:49 2017 Martin Januario
 */
 
 #include	<stdlib.h>

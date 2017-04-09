@@ -1,11 +1,11 @@
 /*
-** get_next_line.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** get_next_line.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/gnl
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Tue Mar 14 12:53:43 2017 
-** Last update Wed Mar 15 13:39:45 2017 
+** Started on  Sun Apr  9 02:05:10 2017 Martin Januario
+** Last update Sun Apr  9 02:05:12 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -58,7 +58,7 @@ static char	*my_realloc_gnl(char *str, char *add_str, int *idx_res)
   return (new_str);
 }
 
-static char   	*put_excedent(char *buffer, int *idx_res)
+static char	*put_excedent(char *buffer, int *idx_res)
 {
   char		*str;
   int		idx;

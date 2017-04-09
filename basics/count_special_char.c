@@ -1,11 +1,11 @@
 /*
-** count_special_char.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** count_special_char.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/basics
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Thu Mar 23 01:12:50 2017 
-** Last update Thu Mar 23 01:17:19 2017 
+** Started on  Sun Apr  9 02:13:14 2017 Martin Januario
+** Last update Sun Apr  9 02:23:08 2017 Martin Januario
 */
 
 #include	<stdlib.h>

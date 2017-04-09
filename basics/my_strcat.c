@@ -1,11 +1,11 @@
 /*
-** my_strcat.c for  in /home/januar_m/delivery/PSU/PSU_2016_tetris
+** my_strcat.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/basics
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Mon Feb 27 16:39:37 2017 
-** Last update Thu Mar 16 14:08:53 2017 
+** Started on  Sun Apr  9 02:23:28 2017 Martin Januario
+** Last update Sun Apr  9 02:23:40 2017 Martin Januario
 */
 
 #include	"my.h"

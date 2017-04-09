@@ -1,11 +1,11 @@
 /*
-** match.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** match.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/basics
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Tue Mar 14 14:12:29 2017 
-** Last update Tue Mar 14 14:13:00 2017 
+** Started on  Sun Apr  9 02:23:19 2017 Martin Januario
+** Last update Sun Apr  9 02:23:20 2017 Martin Januario
 */
 
 int		match(char *s1, char *s2)

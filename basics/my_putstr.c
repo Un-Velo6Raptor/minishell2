@@ -1,11 +1,11 @@
 /*
-** my_putstr.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** my_putstr.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/basics
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Tue Mar 14 12:56:39 2017 
-** Last update Sun Mar 19 23:14:43 2017 
+** Started on  Sun Apr  9 02:41:05 2017 Martin Januario
+** Last update Sun Apr  9 02:41:06 2017 Martin Januario
 */
 
 #include	<unistd.h>

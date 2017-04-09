@@ -1,11 +1,11 @@
 /*
-** my_unsetenv.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** my_unsetenv.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/builtins
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Thu Mar 16 15:05:58 2017 
-** Last update Fri Mar 17 10:47:28 2017 
+** Started on  Sun Apr  9 02:08:44 2017 Martin Januario
+** Last update Sun Apr  9 02:08:45 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -16,7 +16,7 @@ int		remove_var_env(t_needs *news, int nb)
   char		**new_env;
   int		idx;
   int		cpt;
-  
+
   idx = 0;
   cpt = 0;
   if ((new_env = malloc(sizeof(char *) * my_tablen(news->my_env))) == NULL)

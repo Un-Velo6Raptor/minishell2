@@ -1,11 +1,11 @@
 /*
-** my_tabdup.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** my_tabdup.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/basics
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Tue Mar 14 13:13:23 2017 
-** Last update Tue Mar 14 13:22:00 2017 
+** Started on  Sun Apr  9 02:41:37 2017 Martin Januario
+** Last update Sun Apr  9 02:41:39 2017 Martin Januario
 */
 
 #include	<stdlib.h>

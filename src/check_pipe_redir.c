@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Apr  5 16:47:27 2017 Martin Januario
-** Last update Fri Apr  7 03:57:03 2017 Martin Januario
+** Last update Sun Apr  9 01:54:43 2017 Martin Januario
 */
 
 #include	"my.h"
@@ -54,7 +54,7 @@ int		check_pipe_redir(t_my_order *my_order)
 	  (order_null(my_order) == 84 ||
 	   my_order->next == NULL || my_order->next->order == NULL ||
 	   my_order->next->order[0] == NULL))
-	return (my_puterror("Invalid null command.\n")); 
+	return (my_puterror("Invalid null command.\n"));
       if ((my_strcmp(my_order->oper_n, ">") == 0 ||
 	   my_strcmp(my_order->oper_n, ">>") == 0) &&
 	  (order_null(my_order) == 84 ||

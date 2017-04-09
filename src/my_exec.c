@@ -1,11 +1,11 @@
 /*
-** my_exec.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** my_exec.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/src
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Mon Mar 27 14:01:03 2017 Martin Januario
-** Last update Fri Apr  7 18:58:21 2017 Martin Januario
+** Started on  Sun Apr  9 02:46:13 2017 Martin Januario
+** Last update Sun Apr  9 02:46:19 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -44,6 +44,8 @@ int		check_path(char *str, t_my_order *my_order)
 int		exec_this(t_needs *news, t_my_order *my_order,
 			  char *exec_path)
 {
+  if (my_strcmp(my_order->oper_n, "<") == 0 && my_order->fd != -1)
+    dup2(my_order->fd, 0);
   if (my_strcmp(my_order->oper_n, ">") == 0 ||
       my_strcmp(my_order->oper_n, ">>") == 0)
     {
@@ -54,7 +56,7 @@ int		exec_this(t_needs *news, t_my_order *my_order,
   if ((execve(exec_path, my_order->order, news->my_env)) == -1)
     {
       my_puterror(exec_path);
-      my_puterror(": Exec format error. Binary file not executable.");
+      my_puterror(": Exec format error. Binary file not executable.\n");
       close(my_order->fd);
       exit(1);
     }
@@ -64,10 +66,13 @@ int		exec_this(t_needs *news, t_my_order *my_order,
 int		open_redir(t_my_order *my_order)
 {
   if ((my_strcmp(my_order->oper_n, ">") == 0 ||
-      my_strcmp(my_order->oper_n, ">>") == 0) &&
+       my_strcmp(my_order->oper_n, ">>") == 0 ||
+       my_strcmp(my_order->oper_n, "<") == 0) &&
       redir_error(my_order->next->order[0]) == 1)
     return (1);
-  if (my_strcmp(my_order->oper_n, ">") == 0)
+  if (my_strcmp(my_order->oper_n, "<") == 0)
+    my_order->fd = open(my_order->next->order[0], O_RDONLY);
+  else if (my_strcmp(my_order->oper_n, ">") == 0)
     my_order->fd = open(my_order->next->order[0],
 			O_CREAT | O_TRUNC | O_RDWR, 0644);
   else if (my_strcmp(my_order->oper_n, ">>") == 0)
@@ -76,16 +81,15 @@ int		open_redir(t_my_order *my_order)
   return (0);
 }
 
-int		my_exec(t_needs *news, t_my_order *my_order, char *exec_path)
+int		my_exec(t_needs *news, t_my_order *my_order,
+			char *exec_path)
 {
   int		son_uid;
   int		status;
 
   son_uid = 0;
   status = 0;
-  if (check_path(exec_path, my_order) == 1)
-    return (1);
-  if (open_redir(my_order) == 1)
+  if (check_path(exec_path, my_order) == 1 || open_redir(my_order) == 1)
     return (1);
   if ((son_uid = fork()) == -1)
     return (my_puterror("Can't fork.\n"));
@@ -99,7 +103,8 @@ int		my_exec(t_needs *news, t_my_order *my_order, char *exec_path)
 	if (status > 0 && status < 30)
 	  status += 128;
       }
-      close(my_order->fd);
+      if (my_order->fd != -1)
+	close(my_order->fd);
       return ((status % 255));
     }
   else

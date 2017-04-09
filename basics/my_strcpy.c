@@ -1,11 +1,11 @@
 /*
-** my_strcpy.c for  in /home/januar_m/delivery/PSU/PSU_2016_tetris
+** my_strcpy.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/basics
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Mon Feb 27 14:44:49 2017 
-** Last update Tue Mar 14 13:15:36 2017 
+** Started on  Sun Apr  9 02:40:31 2017 Martin Januario
+** Last update Sun Apr  9 02:40:32 2017 Martin Januario
 */
 
 #include	"my.h"

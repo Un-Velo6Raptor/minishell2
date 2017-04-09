@@ -1,11 +1,11 @@
 /*
-** ini_needs.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** ini_needs.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/src
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Tue Mar 14 13:42:31 2017 
-** Last update Sun Mar 19 21:28:52 2017 
+** Started on  Sun Apr  9 02:46:02 2017 Martin Januario
+** Last update Sun Apr  9 02:46:03 2017 Martin Januario
 */
 
 #include	<stdlib.h>

@@ -1,11 +1,11 @@
 /*
-** my_str_is_alpha.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** my_str_is_alpha.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/basics
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Thu Mar 16 13:44:20 2017 
-** Last update Thu Mar 16 13:55:25 2017 
+** Started on  Sun Apr  9 02:23:56 2017 Martin Januario
+** Last update Sun Apr  9 02:24:00 2017 Martin Januario
 */
 
 #include	<stdlib.h>

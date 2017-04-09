@@ -1,11 +1,11 @@
 /*
-** make_exec_path.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** make_exec_path.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/src
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Thu Mar 23 00:41:11 2017 
-** Last update Mon Mar 27 14:15:25 2017 Martin Januario
+** Started on  Sun Apr  9 02:45:25 2017 Martin Januario
+** Last update Sun Apr  9 02:45:27 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -47,7 +47,7 @@ int		found_good_path(char *path,
 	return (MALLOC_FAILED);
       my_strncpy(*exec, &path[idx], size);
       if (path[size_path(&path[idx]) - 1 + idx] != '/' &&
-	  my_order->order[0][0] != '/')	
+	  my_order->order[0][0] != '/')
 	my_strcat(*exec, "/");
       my_strcat(*exec, my_order->order[0]);
       if (access(*exec, 0) != -1 && access(*exec, R_OK) != -1 &&

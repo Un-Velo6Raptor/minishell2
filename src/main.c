@@ -4,15 +4,15 @@
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Tue Mar 14 13:01:35 2017 
-** Last update Wed Mar 22 16:34:53 2017 
+** Started on  Sun Apr  9 02:02:28 2017 Martin Januario
+** Last update Sun Apr  9 02:02:30 2017 Martin Januario
 */
 
 #include	<stdlib.h>
 #include	<signal.h>
 #include	"my.h"
 
-void            recup_sig(int signo)
+void		recup_sig(int signo)
 {
   (void) signo;
 }

@@ -1,11 +1,11 @@
 /*
-** prepare_order.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** prepare_order.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/src
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Tue Mar 14 16:21:31 2017 
-** Last update Wed Mar 15 20:09:34 2017 
+** Started on  Sun Apr  9 02:45:35 2017 Martin Januario
+** Last update Sun Apr  9 02:45:36 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -28,9 +28,9 @@ t_my_order	*ini_my_order(void)
 
 int		size_separate(char *str)
 {
-  int           idx;
-  int           tmp;
-  int           quote[2];
+  int		idx;
+  int		tmp;
+  int		quote[2];
 
   idx = 0;
   quote[0] = 0;

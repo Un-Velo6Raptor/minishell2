@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Apr  5 20:54:25 2017 Martin Januario
-** Last update Wed Apr  5 21:38:23 2017 Martin Januario
+** Last update Sun Apr  9 01:55:10 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -45,7 +45,9 @@ int		my_order_for_redir(t_my_order *my_order)
   tmp = NULL;
   while (my_order->next != NULL)
     {
-      if (my_strcmp(my_order->oper_n, ">") == 0 &&
+      if ((my_strcmp(my_order->oper_n, ">") == 0 ||
+	   my_strcmp(my_order->oper_n, ">>") == 0 ||
+	   my_strcmp(my_order->oper_n, "<") == 0) &&
 	  my_tablen(my_order->next->order) > 1)
 	{
 	  if ((tmp = malloc(sizeof(char *) *
@@ -53,7 +55,7 @@ int		my_order_for_redir(t_my_order *my_order)
 			     my_tablen(my_order->next->order) +
 			     2))) == NULL)
 	    return (84);
-	  copy_redir(tmp, my_order);	 
+	  copy_redir(tmp, my_order);
 	}
       my_order = my_order->next;
     }

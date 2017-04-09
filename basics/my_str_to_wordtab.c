@@ -1,11 +1,11 @@
 /*
-** my_str_to_wordtab.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell1
+** my_str_to_wordtab.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/basics
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Wed Jan  4 20:41:11 2017 
-** Last update Wed Mar 15 16:48:50 2017 
+** Started on  Sun Apr  9 02:40:48 2017 Martin Januario
+** Last update Sun Apr  9 02:40:50 2017 Martin Januario
 */
 
 #include	<stdlib.h>

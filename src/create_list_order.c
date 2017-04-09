@@ -1,11 +1,11 @@
 /*
-** create_list_order.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** create_list_order.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/src
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Wed Mar 15 16:23:54 2017 
-** Last update Fri Apr  7 01:43:30 2017 Martin Januario
+** Started on  Sun Apr  9 02:46:34 2017 Martin Januario
+** Last update Sun Apr  9 02:46:35 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -30,7 +30,7 @@ int		fill_list_order(t_my_order *my_order,
     (*idx)++;
   my_order->pipe[0] = 1;
   my_order->pipe[1] = 0;
-  my_order->fd = 0;
+  my_order->fd = -1;
   return (0);
 }
 
@@ -52,7 +52,7 @@ t_my_order	*create_list_order(char **list_order)
   t_my_order	*my_order;
   t_my_order	*beg;
   int		idx;
-  
+
   idx = 0;
   beg = NULL;
   if ((my_order = ini_my_order()) == NULL)

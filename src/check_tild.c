@@ -1,11 +1,11 @@
 /*
-** check_tild.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** check_tild.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/src
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Fri Mar 17 10:55:47 2017 
-** Last update Fri Mar 17 13:18:51 2017 
+** Started on  Sun Apr  9 02:45:44 2017 Martin Januario
+** Last update Sun Apr  9 02:45:46 2017 Martin Januario
 */
 
 #include	<stdlib.h>

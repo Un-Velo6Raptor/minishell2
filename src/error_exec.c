@@ -1,11 +1,11 @@
 /*
-** error_exec.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** error_exec.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/src
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Thu Mar 23 00:11:52 2017 
-** Last update Mon Mar 27 17:23:27 2017 Martin Januario
+** Started on  Sun Apr  9 02:45:03 2017 Martin Januario
+** Last update Sun Apr  9 02:45:05 2017 Martin Januario
 */
 
 #include	<sys/types.h>

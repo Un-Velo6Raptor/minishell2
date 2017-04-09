@@ -1,11 +1,11 @@
 /*
-** exec_the_order.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** exec_the_order.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/src
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Wed Mar 15 21:05:39 2017 
-** Last update Fri Apr  7 04:01:08 2017 Martin Januario
+** Started on  Sun Apr  9 02:45:52 2017 Martin Januario
+** Last update Sun Apr  9 02:45:53 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -16,6 +16,16 @@ int		command_not_found(t_my_order *my_order)
   my_puterror(my_order->order[0]);
   my_puterror(": Command not found.\n");
   return (1);
+}
+
+void		next_redir(t_my_order **my_order)
+{
+  if ((*my_order)->next != NULL &&
+      (my_strcmp((*my_order)->oper_n, ">") == 0 ||
+       my_strcmp((*my_order)->oper_n, ">>") == 0 ||
+       my_strcmp((*my_order)->oper_n, "<") == 0))
+    *my_order = (*my_order)->next;
+  *my_order = (*my_order)->next;
 }
 
 int		check_builtins_next(t_needs *news,
@@ -65,7 +75,6 @@ int		exec_the_order(t_needs *news, t_my_order *my_order)
     return (1);
   if (my_order_for_redir(my_order) == 84)
     return (84);
-  //  disp_list_order(my_order);
   while (my_order != NULL)
     {
       if (check_tild(news, my_order) == MALLOC_FAILED)
@@ -79,10 +88,7 @@ int		exec_the_order(t_needs *news, t_my_order *my_order)
 	}
       else if ((nb = check_builtins(news, my_order, 1)) == MALLOC_FAILED)
 	return (84);
-      if (my_order->next != NULL && (my_strcmp(my_order->oper_n, ">") == 0 ||
-				     my_strcmp(my_order->oper_n, ">>") == 0))
-	my_order = my_order->next;
-      my_order = my_order->next;
+      next_redir(&my_order);
     }
   return (nb);
 }

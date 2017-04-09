@@ -1,11 +1,11 @@
 /*
-** my_strncmp.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** my_strncmp.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/basics
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Tue Mar 14 17:54:33 2017 
-** Last update Mon Apr  3 21:07:41 2017 Martin Januario
+** Started on  Sun Apr  9 02:41:26 2017 Martin Januario
+** Last update Sun Apr  9 02:41:28 2017 Martin Januario
 */
 
 #include	"my.h"

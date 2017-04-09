@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:45:23 2017 Martin Januario
-** Last update Fri Apr  7 18:49:29 2017 Martin Januario
+** Last update Sun Apr  9 01:28:49 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -19,9 +19,11 @@
 
 int		dup_pipe(t_my_order *my_order)
 {
-  if (my_order->before != NULL && my_strcmp(my_order->oper_b, "|") == 0)
-      dup2(my_order->before->pipe[0], 0);
-  if (my_order->next != NULL)
+  if (my_order->before != NULL && my_strcmp(my_order->oper_b, "|") == 0 &&
+      (my_order->before != NULL &&
+       my_strcmp(my_order->before->oper_b, "<") != 0))
+    dup2(my_order->before->pipe[0], 0);
+  if (my_order->next != NULL && my_strcmp(my_order->oper_n, "|") == 0)
     {
       dup2(my_order->pipe[1], 1);
       close(my_order->pipe[0]);
@@ -29,6 +31,8 @@ int		dup_pipe(t_my_order *my_order)
   if (my_strcmp(my_order->oper_n, ">") == 0 ||
       my_strcmp(my_order->oper_n, ">>") == 0)
     {
+      if (redir_error(my_order->next->order[0]) == 1)
+	return (1);
       if (my_strcmp(my_order->oper_n, ">") == 0)
 	my_order->fd = open(my_order->next->order[0],
 			    O_CREAT | O_TRUNC | O_RDWR, 0644);
@@ -47,7 +51,8 @@ int		my_exec_pipe(t_needs *news, t_my_order *my_order)
   char		*exec_path;
   int		value_ret;
 
-  dup_pipe(my_order);
+  if (dup_pipe(my_order) == 1)
+    exit(1);
   if ((value_ret = check_builtins(news, my_order, 0)) != -1)
     exit(value_ret);
   if ((value_ret = make_exec_path(news, my_order, &exec_path)) > 0)
@@ -69,22 +74,19 @@ int		my_exec_pipe(t_needs *news, t_my_order *my_order)
   return (0);
 }
 
-int		wait_son(int *son_uid, t_needs *news,
+int		wait_son(int *son_uid,
 			 t_my_order *beg, int cpt)
 {
   int		status;
-  int		idx;
   int		tmp;
 
-  idx = 0;
-  son_uid[cpt] = -1;
   tmp = 0;
-  while (son_uid[idx] != -1)
+  while (cpt >= 0)
     {
       status = 0;
-      if (waitpid(son_uid[idx], &status, 0) == -1)
-	kill(son_uid[idx], 0);
-      if (!WIFEXITED(status))
+      if (waitpid(son_uid[cpt], &status, 0) == -1)
+	kill(son_uid[cpt], 0);
+      if (!WIFEXITED(status) && status != 13)
 	{
 	  error_exec(status % 255);
 	  if (status > 0 && status < 30)
@@ -92,13 +94,13 @@ int		wait_son(int *son_uid, t_needs *news,
 	}
       if (status == 256)
 	tmp = 1;
-      idx++;
+      if (beg->before != NULL)
+	close(beg->before->pipe[0]);
+      beg = beg->before;
+      cpt--;
     }
   if (son_uid != NULL)
     free(son_uid);
-  if (beg != NULL && beg->order != NULL &&
-      my_strcmp(beg->order[0], "cd") == 0)
-    status = my_cd(beg, news);
   return ((tmp == 0) ? (status % 255) : 1);
 }
 
@@ -128,5 +130,5 @@ int		create_pipe(t_needs *news, t_my_order *my_order)
 	  my_order = my_order->next;
 	}
     }
-  return (wait_son(son_uid, news, beg, idx));
+  return (wait_son(son_uid, beg, idx - 1));
 }

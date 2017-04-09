@@ -1,11 +1,11 @@
 /*
-** my.h for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** my.h for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/include
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Mon Apr  3 20:08:27 2017 Martin Januario
-** Last update Fri Apr  7 18:41:26 2017 Martin Januario
+** Started on  Sun Apr  9 02:04:41 2017 Martin Januario
+** Last update Sun Apr  9 02:04:43 2017 Martin Januario
 */
 
 #ifndef MY_H_

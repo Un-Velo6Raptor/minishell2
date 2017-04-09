@@ -1,11 +1,11 @@
 /*
-** ini_gnl.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2
+** ini_gnl.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/gnl
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Tue Mar 14 12:54:02 2017 
-** Last update Tue Mar 14 12:54:04 2017 
+** Started on  Sun Apr  9 02:05:18 2017 Martin Januario
+** Last update Sun Apr  9 02:05:19 2017 Martin Januario
 */
 
 #include	"get_next_line.h"

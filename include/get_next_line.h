@@ -1,11 +1,11 @@
 /*
-** get_next_line.h for  in /home/januar_m/delivery/CPE/CPE_2016_matchstick
+** get_next_line.h for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/include
 ** 
 ** Made by Martin Januario
 ** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Mon Feb 13 15:01:20 2017 
-** Last update Wed Feb 22 19:11:10 2017 
+** Started on  Sun Apr  9 02:04:30 2017 Martin Januario
+** Last update Sun Apr  9 02:04:32 2017 Martin Januario
 */
 
 #ifndef GET_NEXT_LINE_H_

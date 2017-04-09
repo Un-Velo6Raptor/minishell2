@@ -1,11 +1,11 @@
 /*
-** my_strncpy.c for  in /home/januar_m/delivery/CPool_Day06
+** my_strncpy.c for  in /home/januar_m/delivery/PSU/PSU_2016_minishell2/basics
 ** 
 ** Made by Martin Januario
-** Login   <januar_m@epitech.net>
+** Login   <martin.januario@epitech.eu>
 ** 
-** Started on  Mon Oct 10 10:18:18 2016 Martin Januario
-** Last update Tue Mar 14 21:31:29 2017 
+** Started on  Sun Apr  9 02:24:12 2017 Martin Januario
+** Last update Sun Apr  9 02:24:13 2017 Martin Januario
 */
 
 #include	"my.h"
