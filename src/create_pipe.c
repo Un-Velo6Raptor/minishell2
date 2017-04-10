@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:45:23 2017 Martin Januario
-** Last update Sun Apr  9 22:11:43 2017 Martin Januario
+** Last update Mon Apr 10 17:57:24 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -75,7 +75,7 @@ int		my_exec_pipe(t_needs *news, t_my_order *my_order)
 }
 
 int		wait_son(int *son_uid,
-			 t_my_order *beg, int cpt)
+			 t_my_order *beg, int cpt, int tmp)
 {
   int		status[2];
 
@@ -94,12 +94,13 @@ int		wait_son(int *son_uid,
 	status[1] = status[0];
       if (beg->before != NULL)
 	close(beg->before->pipe[0]);
+      else
+	close(beg->pipe[0]);
       beg = beg->before;
       cpt--;
     }
-  if (son_uid != NULL)
-    free(son_uid);
-  return ((status[1] != 0) ? (status[1] % 255) : 0);
+  free(son_uid);
+  return ((tmp == 0) ? status[1] : my_puterror("Fail pipe.\n"));
 }
 
 int		create_pipe(t_needs *news, t_my_order *my_order)
@@ -115,7 +116,7 @@ int		create_pipe(t_needs *news, t_my_order *my_order)
 			      my_strcmp(my_order->oper_b, "|") == 0))
     {
       if (pipe(my_order->pipe) == -1)
-	return (my_puterror("Fail pipe.\n"));
+	return (wait_son(son_uid, beg, idx - 1, 1));
       if ((son_uid[idx] = fork()) < 0)
 	return (my_puterror("Fail fork.\n"));
       else if (son_uid[idx] == 0)
@@ -128,5 +129,5 @@ int		create_pipe(t_needs *news, t_my_order *my_order)
 	  my_order = my_order->next;
 	}
     }
-  return (wait_son(son_uid, beg, idx - 1));
+  return (wait_son(son_uid, beg, idx - 1, 0));
 }
