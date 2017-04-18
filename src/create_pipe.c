@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:45:23 2017 Martin Januario
-** Last update Tue Apr 18 14:09:38 2017 Martin Januario
+** Last update Tue Apr 18 14:28:56 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -100,7 +100,7 @@ int		wait_son(int *son_uid,
       cpt--;
     }
   free(son_uid);
-  return ((tmp == 0) ? status[1] : my_puterror("Fail pipe.\n"));
+  return ((tmp == 0) ? (status[1] % 255) : my_puterror("Fail pipe.\n"));
 }
 
 int		create_pipe(t_needs *news, t_my_order *my_order)
