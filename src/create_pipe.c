@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:45:23 2017 Martin Januario
-** Last update Tue Apr 18 14:28:56 2017 Martin Januario
+** Last update Tue Apr 18 16:39:39 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -103,6 +103,16 @@ int		wait_son(int *son_uid,
   return ((tmp == 0) ? (status[1] % 255) : my_puterror("Fail pipe.\n"));
 }
 
+void		big_father(t_my_order **my_order, int *idx,
+			   t_my_order **beg)
+{
+  if ((*my_order)->pipe[1] != -1)
+    close((*my_order)->pipe[1]);
+  *beg = *my_order;
+  (*idx)++;
+  *my_order = (*my_order)->next;
+}
+
 int		create_pipe(t_needs *news, t_my_order *my_order)
 {
   t_my_order	*beg;
@@ -112,7 +122,7 @@ int		create_pipe(t_needs *news, t_my_order *my_order)
 
   tmp = nb_pipe(my_order);
   beg = my_order;
-  if ((son_uid = malloc(sizeof(int) * (nb_pipe(my_order)))) == NULL)
+  if ((son_uid = malloc(sizeof(int) * tmp)) == NULL)
     return (84);
   idx = 0;
   while (idx < tmp - 1)
@@ -124,12 +134,7 @@ int		create_pipe(t_needs *news, t_my_order *my_order)
       else if (son_uid[idx] == 0)
 	exit(my_exec_pipe(news, my_order));
       else
-	{
-	  close(my_order->pipe[1]);
-	  beg = my_order;
-	  idx++;
-	  my_order = my_order->next;
-	}
+	big_father(&my_order, &idx, &beg);
     }
   return (wait_son(son_uid, beg, idx - 1, 0));
 }

@@ -5,7 +5,7 @@
 ## Login   <martin.januario@epitech.eu>
 ## 
 ## Started on  Wed Apr  5 16:47:48 2017 Martin Januario
-## Last update Sun Apr 16 21:24:44 2017 Martin Januario
+## Last update Tue Apr 18 17:07:41 2017 Martin Januario
 ##
 
 SRC	=	src/main.c			\
@@ -21,6 +21,7 @@ SRC	=	src/main.c			\
 		src/check_pipe_redir.c		\
 		src/create_pipe.c		\
 		src/redir_error.c		\
+		src/command_not_found.c		\
 		src/check_tild.c		\
 		src/update_pwd.c		\
 		src/my_exec.c			\
