@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Apr  5 16:47:27 2017 Martin Januario
-** Last update Sun Apr  9 01:54:43 2017 Martin Januario
+** Last update Fri Apr 14 15:08:09 2017 Martin Januario
 */
 
 #include	"my.h"
@@ -48,7 +48,7 @@ int		check_pipe_redir(t_my_order *my_order)
   t_my_order	*beg;
 
   beg = my_order;
-  while (my_order->next != NULL)
+  while (my_order != NULL)
     {
       if (my_strcmp(my_order->oper_n, "|") == 0 &&
 	  (order_null(my_order) == 84 ||

@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:45:52 2017 Martin Januario
-** Last update Sun Apr  9 02:45:53 2017 Martin Januario
+** Last update Tue Apr 18 14:01:54 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -69,7 +69,11 @@ int		check_builtins(t_needs *news, t_my_order *my_order, int opt)
 int		exec_the_order(t_needs *news, t_my_order *my_order)
 {
   int		nb;
+  int		tmp;
+  int		idx;
 
+  tmp = 0;
+  idx = 0;
   nb = 0;
   if (check_pipe_redir(my_order) == 1)
     return (1);
@@ -77,14 +81,18 @@ int		exec_the_order(t_needs *news, t_my_order *my_order)
     return (84);
   while (my_order != NULL)
     {
+      idx = 0;
       if (check_tild(news, my_order) == MALLOC_FAILED)
 	return (84);
       if (my_order->next != NULL && my_strcmp(my_order->oper_n, "|") == 0)
 	{
 	  nb = create_pipe(news, my_order);
-	  while (my_order->next != NULL &&
-		 my_strcmp(my_order->oper_n, "|") == 0)
-	    my_order = my_order->next;
+	  tmp = nb_pipe(my_order) - 2;
+	  while (my_order->next != NULL && idx < tmp)
+	    {
+	      my_order = my_order->next;
+	      idx++;
+	    }
 	}
       else if ((nb = check_builtins(news, my_order, 1)) == MALLOC_FAILED)
 	return (84);

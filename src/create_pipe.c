@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:45:23 2017 Martin Januario
-** Last update Mon Apr 10 17:57:24 2017 Martin Januario
+** Last update Tue Apr 18 14:09:38 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -92,9 +92,9 @@ int		wait_son(int *son_uid,
 	}
       if (status[0] != 0 && status[1] == 0)
 	status[1] = status[0];
-      if (beg->before != NULL)
+      if (beg->before != NULL && beg->before->pipe[0] != -1)
 	close(beg->before->pipe[0]);
-      else
+      else if (beg->pipe[0] != -1)
 	close(beg->pipe[0]);
       beg = beg->before;
       cpt--;
@@ -108,12 +108,14 @@ int		create_pipe(t_needs *news, t_my_order *my_order)
   t_my_order	*beg;
   int		*son_uid;
   int		idx;
+  int		tmp;
 
-  idx = 0;
+  tmp = nb_pipe(my_order);
+  beg = my_order;
   if ((son_uid = malloc(sizeof(int) * (nb_pipe(my_order)))) == NULL)
     return (84);
-  while (my_order != NULL && (my_strcmp(my_order->oper_n, "|") == 0 ||
-			      my_strcmp(my_order->oper_b, "|") == 0))
+  idx = 0;
+  while (idx < tmp - 1)
     {
       if (pipe(my_order->pipe) == -1)
 	return (wait_son(son_uid, beg, idx - 1, 1));

@@ -5,7 +5,7 @@
 ## Login   <martin.januario@epitech.eu>
 ## 
 ## Started on  Wed Apr  5 16:47:48 2017 Martin Januario
-## Last update Sun Apr  9 02:24:47 2017 Martin Januario
+## Last update Sun Apr 16 21:24:44 2017 Martin Januario
 ##
 
 SRC	=	src/main.c			\
@@ -47,6 +47,7 @@ BASICS	=	basics/my_strlen.c		\
 		basics/my_tablen.c		\
 		basics/my_free.c		\
 		basics/count_special_char.c	\
+		basics/disp_list_order.c	\
 		basics/my_putstr.c
 
 BUILT	=	builtins/my_exit.c		\
@@ -67,7 +68,7 @@ OBJ	=	$(SRC:.c=.o)			\
 		$(BUILT:.c=.o)			\
 		$(GNL:.c=.o)
 
-CFLAGS	=	-Wall -Wextra -I include/
+CFLAGS	=	-g -Wall -Wextra -I include/
 
 NAME	=	mysh
 

@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:45:35 2017 Martin Januario
-** Last update Sun Apr  9 02:45:36 2017 Martin Januario
+** Last update Tue Apr 18 14:08:06 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -59,7 +59,7 @@ char		**ini_tmp_order(char *str)
       my_putstr((idx_malloc == -1) ? "Unmatched \".\n" : "Unmatched '.\n");
       return (NULL);
     }
-  if ((tmp = malloc(sizeof(char *) * ((idx_malloc * 2) + 1))) == NULL)
+  if ((tmp = malloc(sizeof(char *) * ((idx_malloc * 3) + 1))) == NULL)
     return (NULL);
   return (tmp);
 }
@@ -75,18 +75,14 @@ char		**split_order(char *str)
     return (NULL);
   while (i[0] < my_strlen(str) && str[i[0]] != '\0')
     {
-      i[2] = 0;
-      if (separator_or(&str[i[0]]) == 0)
-	{
-	  i[2] = size_separate(&str[i[0]]);
-	  if ((tmp[i[1]] = my_strndup(&str[i[0]], i[2])) == NULL ||
-	      (my_strlen(&str[i[0] + i[2]]) != 0 &&
-	       (tmp[i[1] + 1] = my_strndup(&str[i[0] + i[2]], 1 +
-					     (separator_or(&str[i[0] + i[2]])
-					      % 2))) == NULL))
-	    return (NULL);
-	  i[1] += 1 + ((my_strlen(&str[i[0] + i[2]]) == 0) ? 0 : 1);
-	}
+      i[2] = size_separate(&str[i[0]]);
+      if ((tmp[i[1]] = my_strndup(&str[i[0]], i[2])) == NULL ||
+	  (my_strlen(&str[i[0] + i[2]]) != 0 &&
+	   (tmp[i[1] + 1] = my_strndup(&str[i[0] + i[2]], 1 +
+				       (separator_or(&str[i[0] + i[2]])
+					% 2))) == NULL))
+	return (NULL);
+      i[1] += 1 + ((my_strlen(&str[i[0] + i[2]]) == 0) ? 0 : 1);
       i[0] += i[2] + 1;
     }
   tmp[i[1]] = NULL;
