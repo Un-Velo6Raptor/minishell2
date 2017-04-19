@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:45:35 2017 Martin Januario
-** Last update Tue Apr 18 14:08:06 2017 Martin Januario
+** Last update Tue Apr 18 18:12:41 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -67,25 +67,40 @@ char		**ini_tmp_order(char *str)
 char		**split_order(char *str)
 {
   char		**tmp;
-  int		i[3];
+  int		idx;
+  int		cpt;
+  int		last_pos;
 
-  i[0] = 0;
-  i[1] = 0;
+  idx = 0;
+  cpt = 0;
+  last_pos = 0;
   if ((tmp = ini_tmp_order(str)) == NULL)
     return (NULL);
-  while (i[0] < my_strlen(str) && str[i[0]] != '\0')
+  while (str[idx] != '\0')
     {
-      i[2] = size_separate(&str[i[0]]);
-      if ((tmp[i[1]] = my_strndup(&str[i[0]], i[2])) == NULL ||
-	  (my_strlen(&str[i[0] + i[2]]) != 0 &&
-	   (tmp[i[1] + 1] = my_strndup(&str[i[0] + i[2]], 1 +
-				       (separator_or(&str[i[0] + i[2]])
-					% 2))) == NULL))
-	return (NULL);
-      i[1] += 1 + ((my_strlen(&str[i[0] + i[2]]) == 0) ? 0 : 1);
-      i[0] += i[2] + 1;
+      if (separator_or(&str[idx]) != 0)
+	{
+	  if ((tmp[cpt] = my_strndup(&str[last_pos], idx - last_pos)) == NULL)
+	    return (NULL);
+	  if ((tmp[cpt + 1] = my_strndup(&str[idx], 1 +
+					 (separator_or(&str[idx]) % 2))) == NULL)
+	    return (NULL);
+	  idx += separator_or(&str[idx]) % 2 + 1;
+	  cpt += 2;
+	  last_pos = idx;
+	}
+      else
+	idx++;
     }
-  tmp[i[1]] = NULL;
+  if (last_pos != idx)
+    {
+      tmp[cpt] = my_strndup(&str[last_pos], idx - last_pos);
+      if (tmp[cpt] == NULL)
+	return (NULL);
+      tmp[cpt + 1] = NULL;
+    }
+  else
+    tmp[cpt] = NULL;
   return (tmp);
 }
 

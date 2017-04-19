@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Apr  5 16:47:27 2017 Martin Januario
-** Last update Fri Apr 14 15:08:09 2017 Martin Januario
+** Last update Wed Apr 19 21:18:42 2017 Martin Januario
 */
 
 #include	"my.h"
@@ -19,25 +19,30 @@ int		order_null(t_my_order *my_order)
   return (0);
 }
 
+//return (my_puterror("Ambiguous input redirect.\n"));
+//return (my_puterror("Ambiguous output redirect.\n"));
+
 int		ambigous(t_my_order *my_order)
 {
-  while (my_order->next != NULL)
+  while (my_order != NULL)
     {
-      if ((my_strcmp(my_order->oper_n, ">") == 0 ||
-	   my_strcmp(my_order->oper_n, ">>") == 0) &&
-	  (my_strcmp(my_order->next->oper_n, ">") == 0 ||
-	   my_strcmp(my_order->next->oper_n, ">>") == 0))
+      if (my_strcmp(my_order->oper_n, "|") == 0 &&
+	  ((my_strcmp(my_order->oper_b, ">") == 0 ||
+	    my_strcmp(my_order->oper_b, ">>") == 0) ||
+	   (my_order->next != NULL &&
+	    (my_strcmp(my_order->next->oper_n, "<") == 0 ||
+	     my_strcmp(my_order->next->oper_n, "<<") == 0))))
 	return (my_puterror("Ambiguous input redirect.\n"));
       if ((my_strcmp(my_order->oper_n, "<") == 0 ||
 	   my_strcmp(my_order->oper_n, "<<") == 0) &&
-	  (my_strcmp(my_order->next->oper_n, "<") == 0 ||
-	   my_strcmp(my_order->next->oper_n, "<<") == 0))
+	  (my_order->next != NULL && (my_strcmp(my_order->next->oper_n, "<<") == 0 ||
+	    my_strcmp(my_order->next->oper_n, "<") == 0)))
 	return (my_puterror("Ambiguous input redirect.\n"));
       if ((my_strcmp(my_order->oper_n, ">") == 0 ||
-	   my_strcmp(my_order->oper_n, ">") == 0) &&
-	  (my_strcmp(my_order->next->oper_n, "|") == 0 ||
-	   my_strcmp(my_order->next->oper_n, "|") == 0))
-	return (my_puterror("Ambiguous input redirect.\n"));
+	   my_strcmp(my_order->oper_n, ">>") == 0) &&
+	  (my_order->next != NULL && (my_strcmp(my_order->next->oper_n, ">") == 0 ||
+	    my_strcmp(my_order->next->oper_n, ">>") == 0)))
+	return (my_puterror("Ambiguous output redirect.\n"));
       my_order = my_order->next;
     }
   return (0);

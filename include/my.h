@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:04:41 2017 Martin Januario
-** Last update Sun Apr  9 02:04:43 2017 Martin Januario
+** Last update Wed Apr 19 21:24:27 2017 Martin Januario
 */
 
 #ifndef MY_H_
@@ -63,6 +63,8 @@ int			nb_pipe(t_my_order *);
 int			check_pipe_redir(t_my_order *);
 int			my_order_for_redir(t_my_order *);
 int			redir_error(char *);
+int			left_redir_pipe(t_my_order *);
+int			is_a_redir(t_my_order *);
 
 /*
 **			Prototypes of file's basics.

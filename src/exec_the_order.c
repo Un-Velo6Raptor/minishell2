@@ -5,21 +5,11 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:45:52 2017 Martin Januario
-** Last update Tue Apr 18 17:16:04 2017 Martin Januario
+** Last update Wed Apr 19 21:21:28 2017 Martin Januario
 */
 
 #include	<stdlib.h>
 #include	"my.h"
-
-void		next_redir(t_my_order **my_order)
-{
-  if ((*my_order)->next != NULL &&
-      (my_strcmp((*my_order)->oper_n, ">") == 0 ||
-       my_strcmp((*my_order)->oper_n, ">>") == 0 ||
-       my_strcmp((*my_order)->oper_n, "<") == 0))
-    *my_order = (*my_order)->next;
-  *my_order = (*my_order)->next;
-}
 
 int		check_builtins_next(t_needs *news,
 				    t_my_order *my_order, int opt)
@@ -59,21 +49,6 @@ int		check_builtins(t_needs *news, t_my_order *my_order, int opt)
   return (check_builtins_next(news, my_order, opt));
 }
 
-void		exec_pipe(t_my_order **my_order, t_needs *news, int *nb)
-{
-  int		idx;
-  int		tmp;
-
-  idx = 0;
-  *nb = create_pipe(news, *my_order);
-  tmp = nb_pipe(*my_order) - 2;
-  while ((*my_order)->next != NULL && idx < tmp)
-    {
-      (*my_order) = (*my_order)->next;
-      idx++;
-    }
-}
-
 int		exec_the_order(t_needs *news, t_my_order *my_order)
 {
   int		nb;
@@ -87,11 +62,16 @@ int		exec_the_order(t_needs *news, t_my_order *my_order)
     {
       if (check_tild(news, my_order) == MALLOC_FAILED)
 	return (84);
-      if (my_order->next != NULL && my_strcmp(my_order->oper_n, "|") == 0)
-	exec_pipe(&my_order, news, &nb);
+      if ((my_order->next != NULL && my_strcmp(my_order->oper_n, "|") == 0) ||
+	  (my_order->next != NULL && my_strcmp(my_order->next->oper_n, "|") == 0 &&
+	   my_strcmp(my_order->oper_n, "<") == 0))
+	nb = create_pipe(news, my_order);
       else if ((nb = check_builtins(news, my_order, 1)) == MALLOC_FAILED)
 	return (84);
-      next_redir(&my_order);
+      while (my_order->next != NULL &&
+	     my_strcmp(my_order->oper_n, ";") != 0)
+	my_order = my_order->next;
+      my_order = my_order->next;
     }
   return (nb);
 }

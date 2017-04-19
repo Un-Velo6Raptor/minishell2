@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:45:23 2017 Martin Januario
-** Last update Tue Apr 18 16:39:39 2017 Martin Januario
+** Last update Wed Apr 19 19:38:44 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -20,10 +20,10 @@
 int		dup_pipe(t_my_order *my_order)
 {
   if (my_order->before != NULL && my_strcmp(my_order->oper_b, "|") == 0 &&
-      (my_order->before != NULL &&
-       my_strcmp(my_order->before->oper_b, "<") != 0))
+      my_strcmp(my_order->before->oper_b, "<") != 0)
     dup2(my_order->before->pipe[0], 0);
-  if (my_order->next != NULL && my_strcmp(my_order->oper_n, "|") == 0)
+  if (my_order->next != NULL && (my_strcmp(my_order->oper_n, "|") == 0 ||
+				 my_strcmp(my_order->oper_n, "<") == 0))
     {
       dup2(my_order->pipe[1], 1);
       close(my_order->pipe[0]);
@@ -43,7 +43,7 @@ int		dup_pipe(t_my_order *my_order)
 	exit(1);
       dup2(my_order->fd, 1);
     }
-  return (0);
+  return (left_redir_pipe(my_order));
 }
 
 int		my_exec_pipe(t_needs *news, t_my_order *my_order)
@@ -108,8 +108,14 @@ void		big_father(t_my_order **my_order, int *idx,
 {
   if ((*my_order)->pipe[1] != -1)
     close((*my_order)->pipe[1]);
-  *beg = *my_order;
   (*idx)++;
+  if (my_strcmp((*my_order)->oper_n, "<") == 0)
+    *my_order = (*my_order)->next;
+  else
+    *beg = *my_order;
+  if (my_strcmp((*my_order)->oper_n, ">") == 0 ||
+      my_strcmp((*my_order)->oper_n, ">>") == 0)
+    *my_order = (*my_order)->next;
   *my_order = (*my_order)->next;
 }
 
@@ -122,10 +128,11 @@ int		create_pipe(t_needs *news, t_my_order *my_order)
 
   tmp = nb_pipe(my_order);
   beg = my_order;
-  if ((son_uid = malloc(sizeof(int) * tmp)) == NULL)
+  if ((son_uid = malloc(sizeof(int) * (tmp + 2))) == NULL)
     return (84);
   idx = 0;
-  while (idx < tmp - 1)
+  while (idx < tmp - 1 || (my_order != NULL &&
+			   my_strcmp(my_order->oper_b, ";") != 0))
     {
       if (pipe(my_order->pipe) == -1)
 	return (wait_son(son_uid, beg, idx - 1, 1));

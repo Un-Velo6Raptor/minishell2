@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:46:13 2017 Martin Januario
-** Last update Sun Apr  9 02:46:19 2017 Martin Januario
+** Last update Wed Apr 19 20:38:12 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -53,6 +53,15 @@ int		exec_this(t_needs *news, t_my_order *my_order,
 	exit(my_puterror("Can't open the file for redir.\n"));
       dup2(my_order->fd, 1);
     }
+  if (my_order->next != NULL &&
+      (my_strcmp(my_order->next->oper_n, ">") == 0 ||
+       my_strcmp(my_order->next->oper_n, ">>") == 0))
+    {
+      printf("ERE\n");
+      if (my_order->next->fd == -1)
+	exit(my_puterror("Can't open the file for redir.\n"));
+      dup2(my_order->next->fd, 1);
+    }
   if ((execve(exec_path, my_order->order, news->my_env)) == -1)
     {
       my_puterror(exec_path);
@@ -71,7 +80,15 @@ int		open_redir(t_my_order *my_order)
       redir_error(my_order->next->order[0]) == 1)
     return (1);
   if (my_strcmp(my_order->oper_n, "<") == 0)
-    my_order->fd = open(my_order->next->order[0], O_RDONLY);
+    {
+      my_order->fd = open(my_order->next->order[0], O_RDONLY);
+      if (my_order->next != NULL && my_strcmp(my_order->next->oper_n, ">") == 0)
+	my_order->next->fd = open(my_order->next->next->order[0],
+				  O_CREAT | O_TRUNC | O_RDWR, 0644);
+      if (my_order->next != NULL && my_strcmp(my_order->next->oper_n, ">>") == 0)
+	my_order->next->fd = open(my_order->next->next->order[0], O_CREAT |
+			    O_APPEND | O_RDWR, 0644);
+    }
   else if (my_strcmp(my_order->oper_n, ">") == 0)
     my_order->fd = open(my_order->next->order[0],
 			O_CREAT | O_TRUNC | O_RDWR, 0644);
