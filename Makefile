@@ -5,7 +5,7 @@
 ## Login   <martin.januario@epitech.eu>
 ## 
 ## Started on  Wed Apr  5 16:47:48 2017 Martin Januario
-## Last update Sun Apr 23 15:10:16 2017 Martin Januario
+## Last update Sun Apr 23 15:14:09 2017 Martin Januario
 ##
 
 SRC	=	src/main.c			\
@@ -89,3 +89,5 @@ fclean:		clean
 		rm -f $(NAME)
 
 re:		fclean all
+
+.PHONY:		all clean fclean re
