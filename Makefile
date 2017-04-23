@@ -5,7 +5,7 @@
 ## Login   <martin.januario@epitech.eu>
 ## 
 ## Started on  Wed Apr  5 16:47:48 2017 Martin Januario
-## Last update Fri Apr 21 16:38:54 2017 Martin Januario
+## Last update Sun Apr 23 15:10:16 2017 Martin Januario
 ##
 
 SRC	=	src/main.c			\
@@ -73,7 +73,7 @@ OBJ	=	$(SRC:.c=.o)			\
 		$(BUILT:.c=.o)			\
 		$(GNL:.c=.o)
 
-CFLAGS	=	-g -Wall -Wextra -I include/
+CFLAGS	=	-Wall -Wextra -I include/
 
 NAME	=	mysh
 
