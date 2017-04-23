@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:45:23 2017 Martin Januario
-** Last update Wed Apr 19 19:38:44 2017 Martin Januario
+** Last update Fri Apr 21 08:31:19 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -128,7 +128,7 @@ int		create_pipe(t_needs *news, t_my_order *my_order)
 
   tmp = nb_pipe(my_order);
   beg = my_order;
-  if ((son_uid = malloc(sizeof(int) * (tmp + 2))) == NULL)
+  if ((son_uid = malloc(sizeof(int) * (tmp + 20))) == NULL)
     return (84);
   idx = 0;
   while (idx < tmp - 1 || (my_order != NULL &&

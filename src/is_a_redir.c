@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Apr 19 21:22:39 2017 Martin Januario
-** Last update Wed Apr 19 21:24:36 2017 Martin Januario
+** Last update Thu Apr 20 23:50:41 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -13,5 +13,22 @@
 
 int		is_a_redir(t_my_order *my_order)
 {
-  return (0);
+  int		idx;
+  int		redir;
+
+  idx = 0;
+  redir = 0;
+  while (my_order != NULL && my_strcmp(my_order->oper_b, ";") != 0)
+    {
+      if (my_order->order != NULL &&
+	  (my_strcmp(my_order->order[0], "env") == 0 ||
+	   my_strcmp(my_order->order[0], "setenv") == 0))
+	idx++;
+      if (my_order->order != NULL &&
+	       (my_strcmp(my_order->oper_n, ">") == 0 ||
+		my_strcmp(my_order->oper_n, ">>") == 0))
+	redir++;
+      my_order = my_order->next;
+    }
+  return ((redir != 0 && idx != 0) ? 1 : 0);
 }

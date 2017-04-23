@@ -5,106 +5,98 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:40:48 2017 Martin Januario
-** Last update Sun Apr  9 02:40:50 2017 Martin Januario
+** Last update Fri Apr 21 18:38:24 2017 Martin Januario
 */
 
 #include	<stdlib.h>
 #include	"my.h"
 
-int		skip_space(char *str)
+int		count_word(char *str, int idx)
 {
-  int		idx;
+  char		tmp;
+  int		nb;
 
-  idx = 0;
-  while (str[idx] != '\0' && (str[idx] == ' ' || str[idx] == '\t'))
-    idx++;
-  return (idx);
-}
-
-int		width_word(char *str, int cpt, int opt)
-{
-  int		quote;
-  int		dquote;
-  int		save;
-
-  quote = 0;
-  dquote = 0;
-  save = cpt;
-  while (str[cpt] != '\0' &&
-	 ((str[cpt] != ' ' && str[cpt] != '\t') ||
-	  (((dquote > 0 && dquote % 2 != 0) ||
-			       (quote > 0 && quote % 2 != 0)) && opt == 0)))
+  nb = 0;
+  while (str[idx] != '\0')
     {
-      if (str[cpt] == 34)
-	dquote++;
-      else if (str[cpt] == 39)
-	quote++;
-      cpt++;
+      while (str[idx] != '\0' && str[idx] != ' ' && str[idx] != '\t')
+	{
+	  if (str[idx] == '"' || str[idx] == '\'')
+	    {
+	      tmp = str[idx];
+	      idx++;
+	      while (str[idx] != '\0' && str[idx] != tmp)
+		idx++;
+	      if (str[idx] == '\0')
+		return (0);
+	    }
+	  idx++;
+	}
+      nb++;
+      if (str[idx] != '\0')
+	idx++;
     }
-  if ((dquote % 2 != 0 || quote % 2 != 0) && str[cpt] == '\0')
-    return (width_word(str, save + 1, 1));
-  return (cpt - save);
+  return (nb + 1);
 }
 
-char		*next_word(char *str, int *idx)
+char		skip_space(char *str, int *idx, int *cpt, int opt)
 {
-  char		*result;
-  int		cpt;
+  if (opt == 1)
+    {
+      while (str[*idx] != '\0' && (str[*idx] == ' ' || str[*idx] == '\t'))
+	(*idx)++;
+      (*cpt)++;
+    }
+  else
+    {
+      while (str[*idx] != '\0' && (str[*idx] == ' ' || str[*idx] == '\t'))
+	(*idx)++;
+      *cpt = 0;
+    }
+  return ('A');
+}
+
+int		create_tab(char **tab, char *str, int cpt, int idx)
+{
+  char		tmp;
   int		idx2;
-  int		width;
 
-  cpt = skip_space(str);
-  width = width_word(str, cpt, 0);
-  (*idx) += cpt + width;
-  idx2 = 0;
-  if ((result = malloc(sizeof(char) * (width + 1))) == NULL)
-    return (NULL);
-  if (str[cpt] == 34 || str[cpt] == 39)
-    cpt++;
-  if (cpt + width - 2 >= 0 && (str[cpt + width - 2] == 34 ||
-			       str[cpt + width - 2] == 33))
-    width -= 2;
-  while (idx2 < width && str[cpt + idx2] != '\0')
+  while (str[idx] != '\0')
     {
-      result[idx2] = str[cpt + idx2];
-      idx2++;
+      skip_space(str, &idx, &idx2, 0);
+      if ((tab[cpt] = malloc(my_strlen(str) + 1)) == NULL)
+	return (84);
+      while (str[idx] != '\0' && str[idx] != ' ' && str[idx] != '\t')
+	if (str[idx] == '"' || str[idx] == '\'')
+	  {
+	    tmp = str[idx++];
+	    while (str[idx] != '\0' && str[idx] != tmp)
+	      tab[cpt][idx2] = split_next(str[idx], &idx, &idx2);
+	    if (str[idx] == '\0')
+	      return (84);
+	    idx++;
+	  }
+	else
+	  tab[cpt][idx2] = split_next(str[idx], &idx, &idx2);
+      skip_space(str, &idx, &cpt, 1);
+      tab[cpt - 1][idx2] = '\0';
     }
-  result[idx2] = '\0';
-  return (result);
-}
-
-char		**add_words(char **tab, char *str, int *idx)
-{
-  char		**new_tab;
-  int		cpt;
-
-  cpt = 0;
-  if ((new_tab = malloc(sizeof(char *) * (my_tablen(tab) + 2))) == NULL)
-    return (NULL);
-  while (tab[cpt] != NULL)
-    {
-      if ((new_tab[cpt] = my_strdup(tab[cpt])) == NULL)
-	return (NULL);
-      cpt++;
-    }
-  free_tab(tab);
-  if ((new_tab[cpt] = next_word(str, idx)) == NULL)
-    return (NULL);
-  new_tab[cpt + 1] = NULL;
-  return (new_tab);
+  tab[cpt] = NULL;
+  return (0);
 }
 
 char		**my_str_to_wordtab(char *str)
 {
   char		**tab;
-  int		idx;
+  int		nb;
 
-  idx = 0;
-  if ((tab = malloc(sizeof(char *) * 1)) == NULL)
+  nb = count_word(str, 0);
+  if (nb < 0)
     return (NULL);
-  tab[0] = NULL;
-  while (str[idx] != '\0' && str[idx + skip_space(&str[idx])] != '\0')
-    if ((tab = add_words(tab, &str[idx], &idx)) == NULL)
-      return (NULL);
+  tab = malloc(sizeof(char *) * (nb + 1));
+  if (tab == NULL)
+    return (NULL);
+  if (create_tab(tab, str, 0, 0) == 84)
+    return (NULL);
   return (tab);
 }

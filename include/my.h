@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:04:41 2017 Martin Januario
-** Last update Wed Apr 19 21:24:27 2017 Martin Januario
+** Last update Fri Apr 21 16:43:25 2017 Martin Januario
 */
 
 #ifndef MY_H_
@@ -65,6 +65,8 @@ int			my_order_for_redir(t_my_order *);
 int			redir_error(char *);
 int			left_redir_pipe(t_my_order *);
 int			is_a_redir(t_my_order *);
+void			split_quote(char *, char **, int *, int *);
+char			split_next(char, int *, int *);
 
 /*
 **			Prototypes of file's basics.
@@ -91,6 +93,7 @@ void			disp_list_order(t_my_order *);
 int			my_puterror(char *);
 int			my_getnbr(char *);
 char			*my_strcat(char *, char *);
+int			without_space(char *);
 
 /*
 **			Prototypes of file's builtins.

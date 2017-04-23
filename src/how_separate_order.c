@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:45:13 2017 Martin Januario
-** Last update Sun Apr  9 02:45:14 2017 Martin Januario
+** Last update Fri Apr 21 08:50:50 2017 Martin Januario
 */
 
 #include	"my.h"
@@ -29,29 +29,31 @@ int		separator_or(char *str)
 
 int		how_separate_order(char *str)
 {
+  char		tmp;
   int		idx;
   int		nb;
-  int		tmp;
-  int		quote[2];
 
   idx = 0;
-  quote[0] = 0;
-  quote[1] = 0;
   nb = 1;
   while (str[idx] != '\0')
     {
-      if (str[idx] == '\'')
-        quote[0]++;
-      if (str[idx] == '"')
-        quote[1]++;
-      if (quote[1] % 2 == 0 && quote[0] % 2 == 0 &&
-          (tmp = separator_or(&str[idx])) != 0)
-        {
-          nb++;
-          idx += ((tmp != 1) ? tmp : 0) % 2;
-        }
+      if (str[idx] == '\'' || str[idx] == '"')
+	{
+	  tmp = str[idx];
+	  idx++;
+	  while (str[idx] != '\0' && str[idx] != tmp)
+	    idx++;
+	  if (str[idx] == '\0')
+	    return ((tmp == '\'') ? -1 : -2);
+	}
+      else if (separator_or(&str[idx]) != 0)
+	{
+	  idx += separator_or(&str[idx]) % 2;
+	  nb += 2;
+	}
       idx++;
     }
-  return ((quote[1] % 2 != 0 || quote[0] % 2 != 0) ?
-          ((quote[0] % 2 != 0) ? -1 : -2) : nb);
+  return (nb);
 }
+//  return ((quote[1] % 2 != 0 || quote[0] % 2 != 0) ?
+//          ((quote[0] % 2 != 0) ? -1 : -2) : nb);

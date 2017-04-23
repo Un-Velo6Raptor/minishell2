@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:46:34 2017 Martin Januario
-** Last update Tue Apr 18 17:50:45 2017 Martin Januario
+** Last update Fri Apr 21 16:20:59 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -18,8 +18,11 @@ int		fill_list_order(t_my_order *my_order,
     my_order = my_order->next;
   if (my_order->before != NULL)
     my_order->oper_b = &my_order->before->oper_n[0];
-  if (separator_or(list_order[*idx]) == 0 &&
-      (my_order->order = my_str_to_wordtab(list_order[*idx])) == NULL)
+  if (separator_or(list_order[*idx]) == 0)
+    my_order->order = my_str_to_wordtab(list_order[*idx]);
+  else
+    my_order->order = my_str_to_wordtab("");
+  if (my_order->order == NULL)
     return (MALLOC_FAILED);
   if (separator_or(list_order[*idx]) == 0)
     (*idx)++;

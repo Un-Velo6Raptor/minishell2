@@ -5,7 +5,7 @@
 ## Login   <martin.januario@epitech.eu>
 ## 
 ## Started on  Wed Apr  5 16:47:48 2017 Martin Januario
-## Last update Wed Apr 19 21:22:33 2017 Martin Januario
+## Last update Fri Apr 21 16:38:54 2017 Martin Januario
 ##
 
 SRC	=	src/main.c			\
@@ -23,6 +23,7 @@ SRC	=	src/main.c			\
 		src/create_pipe.c		\
 		src/redir_error.c		\
 		src/command_not_found.c		\
+		src/split_quote.c		\
 		src/check_tild.c		\
 		src/update_pwd.c		\
 		src/my_exec.c			\
@@ -42,6 +43,7 @@ BASICS	=	basics/my_strlen.c		\
 		basics/my_strncmp.c		\
 		basics/my_str_to_wordtab.c	\
 		basics/my_str_is_num.c		\
+		basics/without_space.c		\
 		basics/my_str_is_alpha.c	\
 		basics/my_strndup.c		\
 		basics/my_strncpy.c		\
