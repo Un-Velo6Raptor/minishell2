@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:45:13 2017 Martin Januario
-** Last update Fri Apr 21 08:50:50 2017 Martin Januario
+** Last update Mon Apr 24 14:09:25 2017 Martin Januario
 */
 
 #include	"my.h"
@@ -55,5 +55,3 @@ int		how_separate_order(char *str)
     }
   return (nb);
 }
-//  return ((quote[1] % 2 != 0 || quote[0] % 2 != 0) ?
-//          ((quote[0] % 2 != 0) ? -1 : -2) : nb);
