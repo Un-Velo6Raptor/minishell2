@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:45:52 2017 Martin Januario
-** Last update Sun Apr 23 15:04:31 2017 Martin Januario
+** Last update Mon Apr 24 16:10:57 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -36,12 +36,9 @@ int		check_builtins_next(t_needs *news,
 
 int		check_builtins(t_needs *news, t_my_order *my_order, int opt)
 {
-  if (my_order->order == NULL || my_order->order[0] == NULL ||
-      without_space(my_order->order[0]) == 0)
-    {
-      command_not_found(my_order);
-      return (1);
-    }
+  if (my_order == NULL || my_order->order == NULL ||
+      my_strlen(my_order->order[0]) == 0)
+    return (0);
   if (my_strcmp(my_order->order[0], "exit") == 0)
     return (my_exit(my_order));
   if (my_strcmp(my_order->order[0], "env") == 0)

@@ -5,11 +5,12 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:45:13 2017 Martin Januario
-** Last update Mon Apr 24 14:09:25 2017 Martin Januario
+** Last update Mon Apr 24 15:12:21 2017 Martin Januario
 */
 
 #include	"my.h"
 
+//Faire mes maccros
 int		separator_or(char *str)
 {
   if (my_strncmp(str, "|", 1) == 0)

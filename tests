@@ -1,0 +1,542 @@
+[1]
+NAME="Testing with /usr/bin PATH"
+SETUP="export TERM=xterm ; PATH='/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'pwd'
+[1-END]
+
+[2]
+NAME="Testing with /bin PATH"
+SETUP="export TERM=xterm ; PATH='/bin'"
+CLEAN=""
+TESTS=
+  echo 'pwd'
+[2-END]
+
+[3]
+NAME="run commands"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'cat /etc/resolv.conf'
+  sleep 0.5
+  echo 'ls -l /bin'
+  sleep 0.5
+  echo 'pwd'
+[3-END]
+
+[4]
+NAME="setenv and unsetenv"
+SETUP="/usr/bin/env > .lstenv ; while read varenv ; do unset $varenv ; done < <(/bin/cat .lstenv | /usr/bin/cut -f1 -d=) ; export PATH=/bin:/usr/bin ; export _=ls ; export LS_COLORS=RID ; export MYBG=4 ; export LVL=4 ; export NOTE=2"
+CLEAN="while read varenv ; do export "$varenv" 2>/dev/null ; done  < <(/bin/cat .lstenv) ; /bin/rm -f .lstenv"
+TESTS=
+  echo 'unsetenv HOSTTYPE'
+  echo 'unsetenv VENDOR'
+  echo 'unsetenv OSTYPE'
+  echo 'unsetenv MACHTYPE'
+  echo 'unsetenv SHLVL'
+  echo 'unsetenv PWD'
+  echo 'unsetenv LOGNAME'
+  echo 'unsetenv USER'
+  echo 'unsetenv GROUP'
+  echo 'unsetenv HOST'
+  echo 'unsetenv REMOTEHOST'
+  echo 'unsetenv _'
+  echo 'unsetenv LS_COLORS'
+  echo 'unsetenv NOTE'
+  echo 'setenv titi'
+  echo 'setenv tata coucou'
+  echo 'env'
+  echo '/usr/bin/env'
+  echo 'setenv var1 val1'
+  echo 'setenv var2 val2'
+[4-END]
+
+[5]
+NAME="builtin cd"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'cd ..'
+  echo 'ls -l'
+  echo 'cd /usr'
+  echo 'ls -l'
+[5-END]
+
+[6]
+NAME="many tab and space"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo -e "\t\t    ls\t     \t-l    \t\t  \t -a /usr   \t\t"
+[6-END]
+
+[7]
+NAME="Launch DivZero program with core dump"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo "./my_divzero"
+[7-END]
+
+[8]
+NAME="Launch SegFault program without core dump"
+SETUP="ulimit -c 0 ; export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo "./my_segfault"
+[8-END]
+
+[9]
+NAME="Testing simple pipe"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo "ls -l /bin | grep sh"
+[9-END]
+
+[10]
+NAME="A pipe with a builtin ?"
+SETUP="export VAR1=VALEUR1 ; OLDPATH=$PATH ; PATH='/random'"
+CLEAN="PATH=$OLDPATH"
+TESTS=
+  echo 'setenv | /bin/grep VAR1'
+  echo '/bin/ls | cd /usr'
+  echo 'ls -l'
+[10-END]
+
+[11]
+NAME="PIPE with command not found"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls | cat | grep mysh'
+  echo 'fsdfsdf | ls'
+[11-END]
+
+[12]
+NAME="PIPE with grep doesn't work"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls | cat | grep dfsdfsdfsdfsdf'
+[12-END]
+
+[13]
+NAME="redirection >"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls > .testlolmdr'
+  echo 'echo bite'
+  echo '/bin/grep mysh .testlolmdr >> .testlolmdr'
+  echo '/bin/grep sh .testlolmdr >> .testlolmdr'
+  echo 'cat .testlolmdr'
+  echo 'rm .testlolmdr'
+[13-END]
+
+[14]
+NAME="slut"
+SETUP="echo -e 'toto\nplop\nplip\n' > salut"
+CLEAN="rm salut"
+TESTS=
+  echo 'cat salut'
+  echo '< salut wc -l'
+  echo 'wc <salut -l'
+  echo 'grep -i LO < salut'
+  echo 'grep -i LO < salut | wc -l'
+[14-END]
+
+[15]
+NAME="cat < Makefile"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'cat < Makefile'
+[15-END]
+
+[16]
+NAME="<Makefile cat|> .lol wc -l "
+SETUP=""
+CLEAN=""
+TESTS=
+  echo '< Makefile cat|>.lol wc -l'
+  echo 'cat .lol'
+  echo 'rm .lol'
+[16-END]
+
+[17]
+NAME="cat << a"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'cat << a'
+  echo -e 'lol\nmdr\na'
+[17-END]
+
+[18]
+NAME="cat < Makefile > .lol"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'cat < Makefile > .lol'
+  echo 'cat .lol'
+  echo 'rm .lol'
+[18-END]
+
+
+[19]
+NAME="cat << <"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'cat << Makefile < Makefile'
+[19-END]
+
+
+[20]
+NAME="cat >> .m > .lol"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'cat >> .m > .lol'
+[20-END]
+
+
+[21]
+NAME="cat << Makefile >> .lol"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'cat Makefile > .lol'
+  echo 'cat << Makefile >> .lol'
+  echo 'cat .lol'
+  echo 'rm .lol'
+[21-END]
+
+
+[22]
+NAME="env > .lol"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'unsetenv SHLVL'
+  echo 'unsetenv HOST'
+  echo 'unsetenv _'
+  echo 'unsetenv HOSTTYPE'
+  echo 'unsetenv VENDOR'
+  echo 'unsetenv OSTYPE'
+  echo 'unsetenv MACHTYPE'
+  echo 'unsetenv GROUP'
+  echo 'env > .lol'
+  echo 'cat .lol'
+  echo 'rm .lol'
+[22-END]
+
+[23]
+NAME="ls | cat < Makefile > .lol"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls | cat < Makefile > .lol'
+[23-END]
+
+[24]
+NAME="ls | cat -e > .lol"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls | cat -e > .lol'
+  echo 'cat .lol'
+  echo 'rm .lol'
+[24-END]
+
+[25]
+NAME="cat < Makefile | cat -e > .lol"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'cat < Makefile | cat -e > .lol'
+  echo 'cat .lol'
+  echo 'rm .lol'
+[25-END]
+
+[26]
+NAME="ls -Rl / | head (broken pipe hiden)"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls -Rl / | head'
+[26-END]
+
+[27]
+NAME="only 1 GUILLEMET"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo '"'
+[27-END]
+
+[28]
+NAME="empty GUILLEMET"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo '""'
+[28-END]
+
+[29]
+NAME="lol"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo '"lol"'
+[29-END]
+
+[30]
+NAME="ls |"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls |'
+[30-END]
+
+[31]
+NAME="| ;"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo '| ;'
+[31-END]
+
+[32]
+NAME="ls ||||| cat"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls ||||| cat'
+[32-END]
+
+[33]
+NAME="NULL"
+SETUP=""
+CLEAN=""
+TESTS=
+  cat /dev/null
+[33-END]
+
+[34]
+NAME="Empty"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo ''
+[34-END]
+
+[35]
+NAME="Simple Exec"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'id'
+[35-END]
+
+[36]
+NAME="Run simple commands"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls'
+  echo 'pwd'
+  echo 'ls -l'
+[36-END]
+
+[37]
+NAME="wrong simple command"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'Sahel est con'
+[37-END]
+
+[38]
+NAME="PATH 1"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo '/ls'
+[38-END]
+
+[39]
+NAME="PATH 2"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo '/usr/bin/ls'
+[39-END]
+
+[40]
+NAME="PATH 3"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'setenv PATH caca'
+  echo 'ls'
+[40-END]
+
+[41]
+NAME="PATH 4"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'setenv PATH /usr/bin:'
+  echo 'ls'
+[41-END]
+
+[42]
+NAME="PATH 5"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'setenv PATH /usr/bi'
+  echo 'ls'
+[42-END]
+
+[43]
+NAME="setenv and unsetenv"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'setenv ok ok ok'
+[43-END]
+
+[44]
+NAME="cd"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'cd ..'
+  echo 'ls'
+[44-END]
+
+[45]
+NAME="cd error"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'cd ok ok ok'
+[45-END]
+
+[46]
+NAME="cd error 2"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'cd /root'
+[46-END]
+
+[47]
+NAME="cd -"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'cd ..'
+  echo 'ls'
+  echo 'cd -'
+  echo 'ls'
+[47-END]
+
+[48]
+NAME="pipe with builtins"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'env | grep XDG'
+[48-END]
+
+[49]
+NAME="pipe"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls | cat -e | grep Ma'
+[49-END]
+
+[50]
+NAME="ls >"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls >'
+[50-END]
+
+[51]
+NAME="ls >> out; ls | ls | ls | ls; ls"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls >> out; ls | ls |ls | ls ; ls'
+  echo 'rm out'
+[51-END]
+
+[52]
+NAME="cd - without OLDPWD"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'unsetenv OLDPWD'
+  echo 'cd'
+  echo 'cd -'
+  echo 'ls'
+[52-END]
+
+[53]
+NAME="ls | ;"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls | ;'
+[53-END]
+
+[54]
+NAME="ls | ls > ;"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls | ls > ;'
+[54-END]
+
+[55]
+NAME="ls ; ls > out"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls ; ls > out'
+  echo 'rm out'
+[55-END]
+
+[56]
+NAME=";ls > out"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo ';ls>out'
+  echo 'rm out'
+[56-END]
+
+[57]
+NAME="<< lol"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo '<< lol'
+[57-END]
+
+[58]
+NAME="> out"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo '> out'
+[58-END]

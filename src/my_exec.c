@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:46:13 2017 Martin Januario
-** Last update Fri Apr 21 18:41:37 2017 Martin Januario
+** Last update Mon Apr 24 16:26:10 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -54,6 +54,8 @@ int		exec_this(t_needs *news, t_my_order *my_order,
       dup2(my_order->fd, 1);
     }
   if (my_order->next != NULL &&
+      (my_strcmp(my_order->oper_n, "<") == 0 ||
+       my_strcmp(my_order->oper_n, "<<") == 0) &&
       (my_strcmp(my_order->next->oper_n, ">") == 0 ||
        my_strcmp(my_order->next->oper_n, ">>") == 0))
     {
@@ -88,7 +90,7 @@ int		open_redir(t_my_order *my_order)
       if (my_order->next != NULL
 	  && my_strcmp(my_order->next->oper_n, ">>") == 0)
 	my_order->next->fd = open(my_order->next->next->order[0], O_CREAT |
-			    O_APPEND | O_RDWR, 0644);
+				  O_APPEND | O_RDWR, 0644);
     }
   else if (my_strcmp(my_order->oper_n, ">") == 0)
     my_order->fd = open(my_order->next->order[0],

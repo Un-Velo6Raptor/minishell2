@@ -21,12 +21,6 @@ int		order_null(t_my_order *my_order)
 
 int		check_pipe_redir(t_my_order *my_order)
 {
-  t_my_order	*beg;
-
-  beg = my_order;
-  while (my_order != NULL)
-    {
-      my_order = my_order->next;
-    }
+  
   return (0);
 }
