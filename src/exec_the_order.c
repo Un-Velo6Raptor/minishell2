@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:45:52 2017 Martin Januario
-** Last update Tue Apr 25 20:47:52 2017 Martin Januario
+** Last update Wed Apr 26 16:07:48 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -63,7 +63,7 @@ int		exec_the_order(t_needs *news, t_my_order *my_order)
       if ((my_order->next != NULL && my_strcmp(my_order->oper_n, "|") == 0) ||
 	  is_a_redir(my_order) == 1 ||
 	  (my_order->next != NULL && my_strcmp(my_order->next->oper_n, "|") == 0 &&
-	   my_strcmp(my_order->oper_n, "<") == 0))
+	   check_redir_left(my_order) == 1))
 	nb = create_pipe(news, my_order);
       else if ((nb = check_builtins(news, my_order, 1)) == MALLOC_FAILED)
 	return (84);

@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:04:41 2017 Martin Januario
-** Last update Tue Apr 25 21:25:00 2017 Martin Januario
+** Last update Wed Apr 26 16:00:41 2017 Martin Januario
 */
 
 #ifndef MY_H_
@@ -57,6 +57,7 @@ int			check_tild(t_needs *, t_my_order *);
 int			update_pwd(t_needs *);
 int			my_exec(t_needs *, t_my_order *, char *);
 void			error_exec(int);
+int			is_null(t_my_order *);
 int			count_spe_char(char *, char);
 int			make_exec_path(t_needs *, t_my_order *, char **);
 int			command_not_found(t_my_order *);
