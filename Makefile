@@ -5,7 +5,7 @@
 ## Login   <martin.januario@epitech.eu>
 ## 
 ## Started on  Wed Apr  5 16:47:48 2017 Martin Januario
-## Last update Sun Apr 23 15:14:09 2017 Martin Januario
+## Last update Tue Apr 25 21:09:04 2017 Martin Januario
 ##
 
 SRC	=	src/main.c			\
@@ -14,6 +14,7 @@ SRC	=	src/main.c			\
 		src/prepare_order.c		\
 		src/create_list_order.c		\
 		src/how_separate_order.c	\
+		src/make_double_redir_left.c	\
 		src/free_list_order.c		\
 		src/exec_the_order.c		\
 		src/is_a_redir.c		\
@@ -39,6 +40,7 @@ BASICS	=	basics/my_strlen.c		\
 		basics/my_strdup.c		\
 		basics/my_strcpy.c		\
 		basics/my_strcat.c		\
+		basics/check_all.c		\
 		basics/my_strcmp.c		\
 		basics/my_strncmp.c		\
 		basics/my_str_to_wordtab.c	\

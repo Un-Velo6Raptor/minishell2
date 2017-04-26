@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:04:41 2017 Martin Januario
-** Last update Fri Apr 21 16:43:25 2017 Martin Januario
+** Last update Tue Apr 25 21:25:00 2017 Martin Januario
 */
 
 #ifndef MY_H_
@@ -13,7 +13,11 @@
 
 # include		<stdio.h>
 # include		"get_next_line.h"
-# define		MALLOC_FAILED 84
+
+# define		MALLOC_FAILED	84
+# define		REDIR_LEFT	1
+# define		REDIR_RIGHT	2
+# define		PIPE		0
 
 typedef struct		s_needs
 {
@@ -67,6 +71,7 @@ int			left_redir_pipe(t_my_order *);
 int			is_a_redir(t_my_order *);
 void			split_quote(char *, char **, int *, int *);
 char			split_next(char, int *, int *);
+int			make_double_redir_left(t_my_order *);
 
 /*
 **			Prototypes of file's basics.
@@ -94,6 +99,10 @@ int			my_puterror(char *);
 int			my_getnbr(char *);
 char			*my_strcat(char *, char *);
 int			without_space(char *);
+int			check_pipe(t_my_order *);
+int			check_redir_left(t_my_order *);
+int			check_redir_right(t_my_order *);
+int			is_null(t_my_order *);
 
 /*
 **			Prototypes of file's builtins.

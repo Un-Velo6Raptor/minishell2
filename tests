@@ -104,6 +104,7 @@ TESTS=
   echo 'setenv | /bin/grep VAR1'
   echo '/bin/ls | cd /usr'
   echo 'ls -l'
+  echo 'exit 45|cat /etc/resolv.conf'
 [10-END]
 
 [11]
@@ -269,22 +270,6 @@ CLEAN=""
 TESTS=
   echo 'ls -Rl / | head'
 [26-END]
-
-[27]
-NAME="only 1 GUILLEMET"
-SETUP=""
-CLEAN=""
-TESTS=
-  echo '"'
-[27-END]
-
-[28]
-NAME="empty GUILLEMET"
-SETUP=""
-CLEAN=""
-TESTS=
-  echo '""'
-[28-END]
 
 [29]
 NAME="lol"
@@ -540,3 +525,27 @@ CLEAN=""
 TESTS=
   echo '> out'
 [58-END]
+
+[59]
+NAME="ls ; ; ; ; "
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls ; ; ; '
+[59-END]
+
+[60]
+NAME="ls ; ; ; | ls"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls ; ; ; | ls'
+[60-END]
+
+[61]
+NAME="ls | > z"
+SETUP=""
+CLEAN=""
+TESTS=
+  echo 'ls | > z'
+[61-END]

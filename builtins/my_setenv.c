@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:10:01 2017 Martin Januario
-** Last update Sun Apr  9 02:10:02 2017 Martin Januario
+** Last update Tue Apr 25 20:55:15 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -20,7 +20,7 @@ int		my_setenv(t_my_order *my_order, t_needs *news)
   if (my_tablen(my_order->order) > 3)
     {
       my_order->error = 1;
-      return (my_puterror("setenv: Expression Syntax.\n"));
+      return (my_puterror("setenv: Too many arguments.\n"));
     }
   if (my_str_is_alpha(my_order->order[1]) == 84)
     {

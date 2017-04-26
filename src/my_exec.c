@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:46:13 2017 Martin Januario
-** Last update Mon Apr 24 16:26:10 2017 Martin Januario
+** Last update Wed Apr 26 14:55:20 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -44,7 +44,8 @@ int		check_path(char *str, t_my_order *my_order)
 int		exec_this(t_needs *news, t_my_order *my_order,
 			  char *exec_path)
 {
-  if (my_strcmp(my_order->oper_n, "<") == 0 && my_order->fd != -1)
+  if ((my_strcmp(my_order->oper_n, "<") == 0 ||
+       my_strcmp(my_order->oper_n, "<<") == 0) && my_order->fd != -1)
     dup2(my_order->fd, 0);
   if (my_strcmp(my_order->oper_n, ">") == 0 ||
       my_strcmp(my_order->oper_n, ">>") == 0)
@@ -54,10 +55,10 @@ int		exec_this(t_needs *news, t_my_order *my_order,
       dup2(my_order->fd, 1);
     }
   if (my_order->next != NULL &&
-      (my_strcmp(my_order->oper_n, "<") == 0 ||
-       my_strcmp(my_order->oper_n, "<<") == 0) &&
-      (my_strcmp(my_order->next->oper_n, ">") == 0 ||
-       my_strcmp(my_order->next->oper_n, ">>") == 0))
+      ((my_strcmp(my_order->oper_n, "<") == 0 ||
+	my_strcmp(my_order->oper_n, "<<") == 0) &&
+       (my_strcmp(my_order->next->oper_n, ">") == 0 ||
+	my_strcmp(my_order->next->oper_n, ">>") == 0)))
     {
       if (my_order->next->fd == -1)
 	exit(my_puterror("Can't open the file for redir.\n"));
@@ -75,12 +76,13 @@ int		exec_this(t_needs *news, t_my_order *my_order,
 
 int		open_redir(t_my_order *my_order)
 {
-  if ((my_strcmp(my_order->oper_n, ">") == 0 ||
-       my_strcmp(my_order->oper_n, ">>") == 0 ||
+  if ((check_redir_right(my_order) == 1 ||
        my_strcmp(my_order->oper_n, "<") == 0) &&
       redir_error(my_order->next->order[0]) == 1)
     return (1);
-  if (my_strcmp(my_order->oper_n, "<") == 0)
+  if (my_strcmp(my_order->oper_n, "<<") == 0)
+    make_double_redir_left(my_order);
+  else if (my_strcmp(my_order->oper_n, "<") == 0)
     {
       my_order->fd = open(my_order->next->order[0], O_RDONLY);
       if (my_order->next != NULL &&
@@ -123,6 +125,8 @@ int		my_exec(t_needs *news, t_my_order *my_order,
 	if (status > 0 && status < 30)
 	  status += 128;
       }
+      if (my_order->pipe[1] != -1)
+	close(my_order->pipe[1]);
       if (my_order->fd != -1)
 	close(my_order->fd);
       return ((status % 255));

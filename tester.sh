@@ -5,6 +5,10 @@ REFER="/bin/tcsh -f"
 TRAPSIG=0
 note=0
 sur=0
+debug=1
+
+make
+clear
 
 CAT=`which cat`
 GREP=`which grep`
@@ -63,7 +67,6 @@ load_test()
 {
     id=$1
     ((sur++))
-    debug=$2
     SETUP=`disp_test "$id" | $GREP "SETUP=" | $SED s/'SETUP='// | $SED s/'"'//g`
     CLEAN=`disp_test "$id" | $GREP "CLEAN=" | $SED s/'CLEAN='// | $SED s/'"'//g`
     NAME=`disp_test "$id" | $GREP "NAME=" | $SED s/'NAME='// | $SED s/'"'//g`
@@ -87,7 +90,7 @@ load_test()
     then
 	if [ $debug -ge 1 ]
 	then
-	    echo "Test $id ($NAME) : OK"
+	    echo -e "Test $id ($NAME) : \033[32mOK\033[00m"
 	    if [ $debug -eq 2 ]
 	    then
 		echo "Output $MYSHELL :"
@@ -98,20 +101,20 @@ load_test()
 		echo ""
 	    fi
 	else
-	    echo "OK"
+	    echo -e "\033[32mOK\033[00m"
 	fi
     else
 	if [ $debug -ge 1 ]
 	then
 	    
-	    echo "Test $id ($NAME) : KO - Check output in /tmp/test.$$/$id/"
+	    echo -e "Test $id ($NAME) : \033[31mKO\033[00m - Check output in /tmp/test.$$/$id/"
 	    di=`$DIFF /tmp/.shell.$$ /tmp/.refer.$$`
 	    echo -e "\033[31m$di\033[00m"
 	    $MKDIR -p /tmp/test.$$/$id 2>/dev/null
 	    $CP /tmp/.shell.$$ /tmp/test.$$/$id/mysh.out
 	    $CP /tmp/.refer.$$ /tmp/test.$$/$id/tcsh.out
 	else
-	    echo "KO"
+	    echo -e "\033[31mKO\03[00m"
 	fi
     fi
 }
