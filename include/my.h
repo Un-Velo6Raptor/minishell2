@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:04:41 2017 Martin Januario
-** Last update Wed Apr 26 16:00:41 2017 Martin Januario
+** Last update Wed Apr 26 22:47:21 2017 Martin Januario
 */
 
 #ifndef MY_H_
@@ -63,7 +63,9 @@ int			make_exec_path(t_needs *, t_my_order *, char **);
 int			command_not_found(t_my_order *);
 int			create_pipe(t_needs *, t_my_order *);
 int			check_builtins(t_needs *, t_my_order *, int);
+void			save_pipe(int);
 int			check_path(char *, t_my_order *);
+int			got_pipe(t_my_order *);
 int			nb_pipe(t_my_order *);
 int			check_pipe_redir(t_my_order *);
 int			my_order_for_redir(t_my_order *);
@@ -72,7 +74,7 @@ int			left_redir_pipe(t_my_order *);
 int			is_a_redir(t_my_order *);
 void			split_quote(char *, char **, int *, int *);
 char			split_next(char, int *, int *);
-int			make_double_redir_left(t_my_order *);
+char			**make_double_redir_left(t_my_order *);
 
 /*
 **			Prototypes of file's basics.
@@ -104,6 +106,7 @@ int			check_pipe(t_my_order *);
 int			check_redir_left(t_my_order *);
 int			check_redir_right(t_my_order *);
 int			is_null(t_my_order *);
+void			disp_tab_fd(char **, int);
 
 /*
 **			Prototypes of file's builtins.

@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:45:52 2017 Martin Januario
-** Last update Wed Apr 26 16:07:48 2017 Martin Januario
+** Last update Wed Apr 26 20:48:38 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -61,7 +61,7 @@ int		exec_the_order(t_needs *news, t_my_order *my_order)
       if (check_tild(news, my_order) == MALLOC_FAILED)
 	return (84);
       if ((my_order->next != NULL && my_strcmp(my_order->oper_n, "|") == 0) ||
-	  is_a_redir(my_order) == 1 ||
+	  is_a_redir(my_order) == 1 || got_pipe(my_order) == 1 ||
 	  (my_order->next != NULL && my_strcmp(my_order->next->oper_n, "|") == 0 &&
 	   check_redir_left(my_order) == 1))
 	nb = create_pipe(news, my_order);

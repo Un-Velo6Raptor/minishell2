@@ -5,13 +5,13 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:04:30 2017 Martin Januario
-** Last update Sun Apr  9 02:04:32 2017 Martin Januario
+** Last update Wed Apr 26 21:41:33 2017 Martin Januario
 */
 
 #ifndef GET_NEXT_LINE_H_
 # define GET_NEXT_LINE_H_
 
-# define	READ_SIZE (42)
+# define	READ_SIZE (1)
 
 typedef struct	s_buffer
 {

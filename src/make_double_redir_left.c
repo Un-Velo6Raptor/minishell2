@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Tue Apr 25 21:09:55 2017 Martin Januario
-** Last update Wed Apr 26 15:57:55 2017 Martin Januario
+** Last update Wed Apr 26 20:11:14 2017 Martin Januario
 */
 
 #include	<sys/stat.h>
@@ -36,53 +36,11 @@ int		add_str(char ***tab, char *str)
   return (0);
 }
 
-void		write_file_fd(char **tab, int fd_next)
-{
-  int		idx;
-
-  idx = 0;
-  while (tab != NULL && tab[idx] != NULL)
-    {
-      write(fd_next, tab[idx], my_strlen(tab[idx]));
-      write(fd_next, "\n", 1);
-      idx++;
-    }
-}
-
-void		write_tab_fd(char **tab, int fd, t_my_order *my_order)
-{
-  int		idx;
-  int		fd_next;
-
-  idx = 0;
-  fd_next = -1;
-  while (tab != NULL && tab[idx] != NULL)
-    {
-      write(fd, tab[idx], my_strlen(tab[idx]));
-      write(fd, "\n", 1);
-      idx++;
-    }
-  if (my_order->next != NULL &&
-      my_strcmp(my_order->next->oper_n, ">") == 0)
-    fd_next = open(my_order->next->next->order[0],
-		   O_CREAT | O_TRUNC | O_RDWR, 0644);
-  if (my_order->next != NULL &&
-      my_strcmp(my_order->next->oper_n, ">>") == 0)
-    fd_next = open(my_order->next->next->order[0],
-		   O_CREAT | O_TRUNC | O_RDWR, 0644);
-  if (fd_next != -1)
-    {
-      write_file_fd(tab, fd_next);
-      close(fd_next);
-    }
-}
-
-int		make_double_redir_left(t_my_order *my_order)
+char		**make_double_redir_left(t_my_order *my_order)
 {
   t_buffer	buffer;
   char		**tab;
   char		*str;
-  int		fd;
   int		check;
 
   tab = NULL;
@@ -96,12 +54,7 @@ int		make_double_redir_left(t_my_order *my_order)
       else if (add_str(&tab, str) == 84)
 	check = -1;
     }
-  fd = open(".tmp", O_CREAT | O_TRUNC | O_RDWR, 0644);
-  if (fd != -1)
-    {
-      write_tab_fd(tab, fd, my_order);
-      close(fd);
-    }
-  my_order->fd = open(".tmp", O_RDONLY);
-  return (0);
+  if (check == -1)
+    return (NULL);
+  return (tab);
 }

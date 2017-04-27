@@ -5,7 +5,7 @@
 ## Login   <martin.januario@epitech.eu>
 ## 
 ## Started on  Wed Apr  5 16:47:48 2017 Martin Januario
-## Last update Wed Apr 26 15:59:33 2017 Martin Januario
+## Last update Wed Apr 26 22:44:57 2017 Martin Januario
 ##
 
 SRC	=	src/main.c			\
@@ -31,6 +31,7 @@ SRC	=	src/main.c			\
 		src/my_exec.c			\
 		src/error_exec.c		\
 		src/left_redir_pipe.c		\
+		src/save_pipe.c			\
 		src/make_exec_path.c		\
 		src/isatty_disp.c
 

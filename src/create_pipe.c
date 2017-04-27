@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:45:23 2017 Martin Januario
-** Last update Wed Apr 26 16:21:24 2017 Martin Januario
+** Last update Wed Apr 26 23:29:54 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -109,7 +109,8 @@ void		big_father(t_my_order **my_order, int *idx,
   if ((*my_order)->pipe[1] != -1)
     close((*my_order)->pipe[1]);
   (*idx)++;
-  if (my_strcmp((*my_order)->oper_n, "<") == 0)
+  if (my_strcmp((*my_order)->oper_n, "<") == 0 ||
+      my_strcmp((*my_order)->oper_n, "<<") == 0)
     *my_order = (*my_order)->next;
   else
     *beg = *my_order;
