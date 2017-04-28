@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:04:41 2017 Martin Januario
-** Last update Wed Apr 26 22:47:21 2017 Martin Januario
+** Last update Fri Apr 28 13:04:39 2017 Martin Januario
 */
 
 #ifndef MY_H_
@@ -18,6 +18,8 @@
 # define		REDIR_LEFT	1
 # define		REDIR_RIGHT	2
 # define		PIPE		0
+# define		SIMPLE_REDIR	2
+# define		DOUBLE_REDIR	1
 
 typedef struct		s_needs
 {
@@ -50,8 +52,10 @@ t_my_order		*prepare_order(char *);
 int			how_separate_order(char *);
 int			separator_or();
 t_my_order		*ini_my_order(void);
+void			create_file_redir(t_my_order *);
+void			close_broken(t_my_order *);
 t_my_order		*create_list_order(char **);
-int			exec_the_order(t_needs *, t_my_order *);
+int			exec_the_order(t_needs *, t_my_order *, char *);
 int			free_list_order(t_my_order *);
 int			check_tild(t_needs *, t_my_order *);
 int			update_pwd(t_needs *);
@@ -64,17 +68,19 @@ int			command_not_found(t_my_order *);
 int			create_pipe(t_needs *, t_my_order *);
 int			check_builtins(t_needs *, t_my_order *, int);
 void			save_pipe(int);
+int			right_pipe_redir(t_my_order *);
 int			check_path(char *, t_my_order *);
 int			got_pipe(t_my_order *);
 int			nb_pipe(t_my_order *);
 int			check_pipe_redir(t_my_order *);
 int			my_order_for_redir(t_my_order *);
-int			redir_error(char *);
+int			redir_error(char *, int);
 int			left_redir_pipe(t_my_order *);
 int			is_a_redir(t_my_order *);
 void			split_quote(char *, char **, int *, int *);
 char			split_next(char, int *, int *);
 char			**make_double_redir_left(t_my_order *);
+int			next_exec(t_my_order *);
 
 /*
 **			Prototypes of file's basics.

@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:45:35 2017 Martin Januario
-** Last update Sun Apr 23 15:05:00 2017 Martin Januario
+** Last update Thu Apr 27 21:09:53 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -76,7 +76,7 @@ char		**split_order(char *str, int cpt, int i)
 
   if ((tmp = ini_tmp_order(str)) == NULL)
     return (NULL);
-  while (str[i] != '\0' && my_strlen(str) - 1 > i)
+  while (str[i] != '\0' && my_strlen(str) > i)
     {
       if ((tmp[cpt] = malloc(my_strlen(str) + 1)) == NULL)
 	return (NULL);

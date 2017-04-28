@@ -5,7 +5,7 @@
 ## Login   <martin.januario@epitech.eu>
 ## 
 ## Started on  Wed Apr  5 16:47:48 2017 Martin Januario
-## Last update Wed Apr 26 22:44:57 2017 Martin Januario
+## Last update Fri Apr 28 13:32:36 2017 Martin Januario
 ##
 
 SRC	=	src/main.c			\
@@ -19,19 +19,22 @@ SRC	=	src/main.c			\
 		src/free_list_order.c		\
 		src/exec_the_order.c		\
 		src/is_a_redir.c		\
+		src/next_exec.c			\
 		src/nb_pipe.c			\
 		src/my_order_for_redir.c	\
 		src/check_pipe_redir.c		\
+		src/create_file_redir.c		\
 		src/create_pipe.c		\
 		src/redir_error.c		\
 		src/command_not_found.c		\
 		src/split_quote.c		\
 		src/check_tild.c		\
+		src/close_broken.c		\
 		src/update_pwd.c		\
 		src/my_exec.c			\
 		src/error_exec.c		\
 		src/left_redir_pipe.c		\
-		src/save_pipe.c			\
+		src/right_pipe_redir.c		\
 		src/make_exec_path.c		\
 		src/isatty_disp.c
 

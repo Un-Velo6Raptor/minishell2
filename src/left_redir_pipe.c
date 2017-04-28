@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Apr 19 15:07:25 2017 Martin Januario
-** Last update Wed Apr 26 23:26:18 2017 Martin Januario
+** Last update Thu Apr 27 16:21:43 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -20,10 +20,10 @@ int		left_redir_pipe(t_my_order *my_order)
 {
   if (my_strcmp(my_order->oper_n, "<") == 0)
     {
-      if (redir_error(my_order->next->order[0]) == 1)
+      if (redir_error(my_order->next->order[0], 1) == 1)
 	exit(1);
       my_order->fd = open(my_order->next->order[0], O_RDONLY);
-      if (my_strcmp(my_order->oper_n, "<") == 0 && my_order->fd != -1)
+      if (my_order->fd != -1)
 	dup2(my_order->fd, 0);
     }
   if (my_strcmp(my_order->oper_b, "|") == 0 &&

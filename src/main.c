@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:02:28 2017 Martin Januario
-** Last update Wed Apr 26 20:48:29 2017 Martin Januario
+** Last update Fri Apr 28 13:04:51 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -33,9 +33,11 @@ int		loop_order(t_needs *news, int value_ret)
 	return (0);
       if ((order = prepare_order(tmp)) != NULL)
 	{
-	  value_ret = exec_the_order(news, order);
+	  value_ret = exec_the_order(news, order, tmp);
 	  free_list_order(order);
 	}
+      else if (how_separate_order(tmp) < 0)
+	value_ret = 1;
       my_free(tmp);
       isatty_disp(news);
     }

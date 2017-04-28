@@ -5,26 +5,25 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:45:13 2017 Martin Januario
-** Last update Mon Apr 24 15:12:21 2017 Martin Januario
+** Last update Thu Apr 27 16:19:09 2017 Martin Januario
 */
 
 #include	"my.h"
 
-//Faire mes maccros
 int		separator_or(char *str)
 {
   if (my_strncmp(str, "|", 1) == 0)
-    return (2);
+    return (SIMPLE_REDIR);
   if (my_strncmp(str, ">>", 2) == 0)
-    return (3);
+    return (DOUBLE_REDIR);
   if (my_strncmp(str, ">", 1) == 0)
-    return (4);
+    return (SIMPLE_REDIR);
   if (my_strncmp(str, "<<", 2) == 0)
-    return (5);
+    return (DOUBLE_REDIR);
   if (my_strncmp(str, "<", 1) == 0)
-    return (6);
+    return (SIMPLE_REDIR);
   if (my_strncmp(str, ";", 1) == 0)
-    return (8);
+    return (SIMPLE_REDIR);
   return (0);
 }
 

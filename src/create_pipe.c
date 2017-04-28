@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Apr  3 20:45:23 2017 Martin Januario
-** Last update Wed Apr 26 23:29:54 2017 Martin Januario
+** Last update Thu Apr 27 17:02:53 2017 Martin Januario
 */
 
 #include	<sys/types.h>
@@ -28,21 +28,9 @@ int		dup_pipe(t_my_order *my_order)
       dup2(my_order->pipe[1], 1);
       close(my_order->pipe[0]);
     }
-  if (my_strcmp(my_order->oper_n, ">") == 0 ||
-      my_strcmp(my_order->oper_n, ">>") == 0)
-    {
-      if (redir_error(my_order->next->order[0]) == 1)
-	return (1);
-      if (my_strcmp(my_order->oper_n, ">") == 0)
-	my_order->fd = open(my_order->next->order[0],
-			    O_CREAT | O_TRUNC | O_RDWR, 0644);
-      else if (my_strcmp(my_order->oper_n, ">>") == 0)
-	my_order->fd = open(my_order->next->order[0], O_CREAT |
-			    O_APPEND | O_RDWR, 0644);
-      if (my_order->fd == -1)
-	exit(1);
-      dup2(my_order->fd, 1);
-    }
+  if (check_redir_right(my_order) == 1)
+    if (right_pipe_redir(my_order) == 1)
+      return (1);
   return (left_redir_pipe(my_order));
 }
 
@@ -68,9 +56,6 @@ int		my_exec_pipe(t_needs *news, t_my_order *my_order)
 	close(my_order->fd);
       exit(1);
     }
-  if (my_order->fd != -1)
-    close(my_order->fd);
-  my_free(exec_path);
   return (0);
 }
 
@@ -92,15 +77,14 @@ int		wait_son(int *son_uid,
 	}
       if (status[0] != 0 && status[1] == 0)
 	status[1] = status[0];
-      if (beg->before != NULL && beg->before->pipe[0] != -1)
-	close(beg->before->pipe[0]);
-      else if (beg->pipe[0] != -1)
-	close(beg->pipe[0]);
+      close_broken(beg);
       beg = beg->before;
       cpt--;
     }
-  free(son_uid); // HERE
-  return ((tmp == 0) ? (status[1] % 255) : my_puterror("Fail pipe.\n"));
+  free(son_uid);
+  if (tmp == 0)
+    return (status[1] % 255);
+  return (my_puterror("Fail pipe.\n"));
 }
 
 void		big_father(t_my_order **my_order, int *idx,
@@ -109,13 +93,11 @@ void		big_father(t_my_order **my_order, int *idx,
   if ((*my_order)->pipe[1] != -1)
     close((*my_order)->pipe[1]);
   (*idx)++;
-  if (my_strcmp((*my_order)->oper_n, "<") == 0 ||
-      my_strcmp((*my_order)->oper_n, "<<") == 0)
+  if (check_redir_left(*my_order) == 1)
     *my_order = (*my_order)->next;
   else
     *beg = *my_order;
-  if (my_strcmp((*my_order)->oper_n, ">") == 0 ||
-      my_strcmp((*my_order)->oper_n, ">>") == 0)
+  if (check_redir_right(*my_order) == 1)
     *my_order = (*my_order)->next;
   *my_order = (*my_order)->next;
 }

@@ -5,11 +5,48 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Apr  5 20:54:25 2017 Martin Januario
-** Last update Tue Apr 18 17:45:48 2017 Martin Januario
+** Last update Thu Apr 27 22:19:52 2017 Martin Januario
 */
 
 #include	<stdlib.h>
 #include	"my.h"
+
+int		nb_tab_empty(char **tab)
+{
+  int		idx;
+
+  idx = 0;
+  while (tab[idx] != NULL)
+    {
+      if (my_strlen(tab[idx]) != 0)
+	return (idx);
+      idx++;
+    }
+  return (idx);
+}
+
+int		copy_tab(char **tab, t_my_order *my_order)
+{
+  char		**tmp;
+  int		idx;
+  int		save;
+
+  idx = nb_tab_empty(tab);
+  save = idx;
+  if ((tmp = malloc(sizeof(char *) * (my_tablen(tab) + 1))) == NULL)
+    return (84);
+  while (tab[idx] != NULL)
+    {
+      tmp[idx - save] = my_strdup(tab[idx]);
+      if (tmp[idx - save] == NULL)
+	return (84);
+      idx++;
+    }
+  tmp[idx - save] = NULL;
+  my_order->order = tmp;
+  free_tab(tab);
+  return (0);
+}
 
 int		copy_redir(char **tmp, t_my_order *my_order)
 {
@@ -18,7 +55,7 @@ int		copy_redir(char **tmp, t_my_order *my_order)
 
   idx = 0;
   idx2 = 1;
- while (my_order->order[idx] != NULL)
+  while (my_order->order[idx] != NULL)
     {
       tmp[idx] = &my_order->order[idx][0];
       idx++;
@@ -34,6 +71,8 @@ int		copy_redir(char **tmp, t_my_order *my_order)
   tmp[idx] = NULL;
   my_order->next->order[1] = NULL;
   free(my_order->order);
+  if (check_redir_right(my_order) == 1)
+    return (copy_tab(tmp, my_order));
   my_order->order = tmp;
   return (0);
 }
@@ -45,9 +84,8 @@ int		my_order_for_redir(t_my_order *my_order)
   tmp = NULL;
   while (my_order->next != NULL)
     {
-      if ((my_strcmp(my_order->oper_n, ">") == 0 ||
-	   my_strcmp(my_order->oper_n, ">>") == 0 ||
-	   my_strcmp(my_order->oper_n, "<") == 0) &&
+      if ((check_redir_right(my_order) == 1 ||
+	   check_redir_left(my_order) == 1) &&
 	  my_tablen(my_order->next->order) > 1)
 	{
 	  if ((tmp = malloc(sizeof(char *) *
