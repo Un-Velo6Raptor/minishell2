@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Apr  9 02:46:13 2017 Martin Januario
-** Last update Thu Apr 27 22:46:00 2017 Martin Januario
+** Last update Fri Apr 28 15:04:13 2017 Martin Januario
 */
 
 #include	<stdlib.h>
@@ -92,6 +92,18 @@ int		open_redir(t_my_order *my_order)
   return (0);
 }
 
+void		modif_status(t_my_order *my_order, int *status,
+			     int save)
+{
+  if (!WIFEXITED(*status))
+    error_exec(*status % 255);
+  if (*status > 0 && *status < 30)
+    *status += 128;
+  if (check_redir_left(my_order) == 1 &&
+      check_redir_right(my_order->next) == 1)
+    dup2(save, 1);
+}
+
 int		my_exec(t_needs *news, t_my_order *my_order,
 			char *exec_path)
 {
@@ -101,7 +113,9 @@ int		my_exec(t_needs *news, t_my_order *my_order,
 
   son_uid = 0;
   status = 0;
-  save = dup(1);
+  if (check_redir_left(my_order) == 1 &&
+      check_redir_right(my_order->next) == 1)
+    save = dup(1);
   if (open_redir(my_order) == 1 || check_path(exec_path, my_order) == 1)
     return (1);
   if ((son_uid = fork()) == -1)
@@ -110,11 +124,7 @@ int		my_exec(t_needs *news, t_my_order *my_order,
     {
       if (waitpid(son_uid, &status, 0) == -1)
 	kill(son_uid, 0);
-      if (!WIFEXITED(status))
-	error_exec(status % 255);
-      if (status > 0 && status < 30)
-	status += 128;
-      dup2(save, 1);
+      modif_status(my_order, &status, save);
       return ((status % 255));
     }
   else
