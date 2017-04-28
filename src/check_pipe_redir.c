@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Wed Apr  5 16:47:27 2017 Martin Januario
-** Last update Thu Apr 27 21:02:40 2017 Martin Januario
+** Last update Fri Apr 28 16:44:00 2017 Martin Januario
 */
 
 #include	"my.h"
@@ -62,14 +62,14 @@ int		c_pipe(t_my_order *my_order)
 
 int		check_pipe_redir(t_my_order *my_order)
 {
-  int		(*franklin[3])(t_my_order *) = {c_pipe,
+  int		(*redir_pipe[3])(t_my_order *) = {c_pipe,
 						c_redir_left, c_redir_right};
   int		nb;
 
   while (my_order != NULL)
     {
       nb = check_separator(my_order);
-      if (nb != -1 && franklin[nb](my_order) == 1)
+      if (nb != -1 && redir_pipe[nb](my_order) == 1)
 	return (1);
       my_order = my_order->next;
     }
